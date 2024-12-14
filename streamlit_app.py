@@ -23,7 +23,6 @@ with st.sidebar:
     )
 
 # Menambahkan gambar latar belakang dengan CSS
-background_image =
 st.image("Presiden t1.jpg") # Ganti dengan path ke gambar latar belakang Anda
 st.markdown(
     f"""
