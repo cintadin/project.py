@@ -60,9 +60,9 @@ if select == "Introduction":
 
     # Informasi anggota
     st.markdown("<p class='subheader'>Group Members</p>", unsafe_allow_html=True)
-    st.markdown("<p class='content'>1. Chyntia Adinda Ramadani</p>", unsafe_allow_html=True)
-    st.markdown("<p class='content'>2. Salsabilla Clarysa Putri</p>", unsafe_allow_html=True)
-    st.markdown("<p class='content'>3. Ratu Enjelita</p>", unsafe_allow_html=True)
+    st.markdown("<p class='content'>Chyntia Adinda Ramadani (004202305053)</p>", unsafe_allow_html=True)
+    st.markdown("<p class='content'>Ratu Enjelita (004202305032)</p>", unsafe_allow_html=True)
+    st.markdown("<p class='content'>Salsabilla Clarysa Putri (004202305016)</p>", unsafe_allow_html=True)
 
     # Program studi dan fakultas
     st.markdown("<p class='subheader'>Program Study</p>", unsafe_allow_html=True)
@@ -76,9 +76,9 @@ if select == "Introduction":
     with col1:
         st.image("cinta2.jpg", caption="Chyntia Adinda", use_container_width=True)
     with col2:
-        st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True)
-    with col3:
         st.image("ratu2.jpg", caption="Ratu Enjelita", use_container_width=True)
+    with col3:
+       st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True) 
 
 # Menu "Application"
 elif select == "Application":
