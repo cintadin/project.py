@@ -74,7 +74,7 @@ if select == 'Introduction':
     st.markdown("<div class='container'>", unsafe_allow_html=True)
     st.markdown("<p class='title'>INTRODUCTION</p>", unsafe_allow_html=True)
     st.markdown("<img src='data:image/png;base64,{}' class='logo'>".format(
-        base64.b64encode(open("President_University_Logo.jpg", "rb").read()).decode()), unsafe_allow_html=True)
+        base64.b64encode(open("President_University_Logo.png", "rb").read()).decode()), unsafe_allow_html=True)
 
     # Informasi kelompok
     st.markdown("<p class='subheader'>Group 3 IEN 1 2024</p>", unsafe_allow_html=True)
