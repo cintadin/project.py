@@ -3,8 +3,6 @@ from streamlit_option_menu import option_menu  # type: ignore
 from PIL import Image, ImageEnhance
 import numpy as np
 import cv2
-import base64
-
 # Konfigurasi halaman
 st.set_page_config(page_title="Kelompok Project", layout="centered")
 
