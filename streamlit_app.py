@@ -75,7 +75,7 @@ if select == 'Introduction':
     st.markdown("<p class='title'>INTRODUCTION</p>", unsafe_allow_html=True)
 
     # Encode logo image to base64 and display
-    logo_path = "President_University_Logo.png"  # Definisikan logo_path
+    logo_path = "President_University_Logo.png"  # Directly use the image file path
     with open(logo_path, "rb") as img_file:
         logo_base64 = base64.b64encode(img_file.read()).decode()
 
@@ -86,7 +86,7 @@ if select == 'Introduction':
     st.markdown("<p class='content'>Chyntia Adinda Ramadani (004202305053)</p>", unsafe_allow_html=True)
     st.markdown("<p class='content'>Ratu Enjelita (004202305032)</p>", unsafe_allow_html=True)
     st.markdown("<p class='content'>Salsabilla Clarysa Putri (004202305016)</p>", unsafe_allow_html=True)
-    st.image("Presiden_University_Logo.png",use_container_width=True)
+    st.image("President_University_Logo.png", use_container_width=True)
 
     st.markdown("<p class='subheader'>Program Study</p>", unsafe_allow_html=True)
     st.markdown("<p class='content'>Industrial Engineering</p>", unsafe_allow_html=True)
