@@ -58,7 +58,7 @@ def set_background_image(image_path):
         st.error(f"File background tidak ditemukan. Periksa path gambar Anda.")
 
 # Atur path file lokal untuk gambar latar belakang
-background_image_path = "President_University_Logo.jpg"
+background_image_path = "President_University_Logo.png"
 set_background_image(background_image_path)
 
 # Navigasi sidebar
