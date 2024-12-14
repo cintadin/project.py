@@ -1,15 +1,13 @@
 import streamlit as st
 from streamlit_option_menu import option_menu  # type: ignore
-from PIL import Image, ImageEnhance
+from PIL import Image
 import numpy as np
-import io
 
 # Konfigurasi halaman
 st.set_page_config(page_title="Project Final Exam", layout="centered")
 
 # Atur path file lokal untuk gambar latar belakang
-background_image =
-st.image("Presiden t1.jpg") # Pastikan path-nya benar
+background_image_path = r"C:\Users\Lenovo\OneDrive\Gambar\Presiden t1.jpg"  # Pastikan path-nya benar
 
 # Gunakan CSS untuk menambahkan gambar latar belakang
 st.markdown(
@@ -21,6 +19,7 @@ st.markdown(
         background-position: center;
         background-repeat: no-repeat;
         height: 100vh;
+        margin: 0;
     }}
     .container {{
         background-color: rgba(255, 255, 255, 0.8);
@@ -97,13 +96,6 @@ elif select == "Application":
         # Pilih jenis transformasi
         transformation = st.selectbox("Select Transformation", ["Select", "Rotate", "Translate", "Scale", "Shear", "Resize", "Skew", "Brightness", "Transparency", "Remove Background"])
 
-        # Fungsi untuk mengubah gambar menjadi byte stream
-        def image_to_bytes(img, format='PNG'):
-            img_byte_arr = io.BytesIO()
-            img.save(img_byte_arr, format=format)
-            img_byte_arr.seek(0)
-            return img_byte_arr
-
         if transformation == "Rotate":
             angle = st.slider("Enter Rotation Angle (degrees)", min_value=0, max_value=360, value=90, step=1)
             rotated_image = image.rotate(angle)
@@ -116,83 +108,3 @@ elif select == "Application":
             M = np.float32([[1, 0, tx], [0, 1, ty]])  # Matriks translasi
             translated_image = cv2.warpAffine(img_array, M, (img_array.shape[1], img_array.shape[0]))
             st.image(translated_image, caption="Translated Image", use_container_width=True)
-
-        elif transformation == "Scale":
-            scale_factor = st.slider("Enter Scale Factor", min_value=0.1, max_value=5.0, value=1.0, step=0.1)
-            width, height = image.size
-            new_size = (int(width * scale_factor), int(height * scale_factor))
-            scaled_image = image.resize(new_size)
-            st.image(scaled_image, caption="Scaled Image", use_container_width=True)
-
-        elif transformation == "Shear":
-            shear_factor = st.slider("Enter Shear Factor", min_value=0.0, max_value=10.0, value=1.0, step=0.1)
-            img_array = np.array(image)  # Konversi gambar PIL ke numpy array
-            rows, cols = img_array.shape[:2]
-            M = np.float32([[1, shear_factor, 0], [0, 1, 0]])  # Matriks shear
-            sheared_image = cv2.warpAffine(img_array, M, (cols, rows))
-            st.image(sheared_image, caption="Sheared Image", use_container_width=True)
-
-        elif transformation == "Resize":
-            new_width = st.slider("Enter New Width", min_value=100, max_value=2000, value=image.width, step=10)
-            new_height = st.slider("Enter New Height", min_value=100, max_value=2000, value=image.height, step=10)
-            resized_image = image.resize((new_width, new_height))
-            st.image(resized_image, caption="Resized Image", use_container_width=True)
-
-        elif transformation == "Skew":
-            skew_factor = st.slider("Enter Skew Factor", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
-            img_array = np.array(image)  # Konversi gambar PIL ke numpy array
-            rows, cols = img_array.shape[:2]
-            M = np.float32([[1, skew_factor, 0], [0, 1, 0]])  # Matriks skew
-            skewed_image = cv2.warpAffine(img_array, M, (cols, rows))
-            st.image(skewed_image, caption="Skewed Image", use_container_width=True)
-
-        elif transformation == "Brightness":
-            brightness = st.slider("Adjust Brightness", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
-            enhancer = ImageEnhance.Brightness(image)
-            bright_image = enhancer.enhance(brightness)
-            st.image(bright_image, caption="Brightness Adjusted Image", use_container_width=True)
-
-        elif transformation == "Transparency":
-            transparency = st.slider("Adjust Transparency", min_value=0.0, max_value=1.0, value=1.0, step=0.1)
-            if image.mode != 'RGBA':
-                image = image.convert('RGBA')
-            data = np.array(image)
-            data[..., 3] = (data[..., 3] * transparency).astype(np.uint8)
-            transparent_image = Image.fromarray(data, 'RGBA')
-            st.image(transparent_image, caption="Transparency Adjusted Image", use_container_width=True)
-
-        elif transformation == "Remove Background":
-            st.warning("Remove background feature requires additional processing, and currently, we don't have the implementation for this.")
-
-        # Fitur untuk mendownload gambar hasil transformasi
-        st.subheader("Download Transformed Image")
-        download_format = st.selectbox("Choose download format", ["PNG", "JPEG", "PDF"])
-
-        # Pastikan gambar yang ditampilkan adalah gambar yang benar
-        if transformation == "Rotate":
-            final_image = rotated_image
-        elif transformation == "Translate":
-            final_image = translated_image
-        elif transformation == "Scale":
-            final_image = scaled_image
-        elif transformation == "Shear":
-            final_image = sheared_image
-        elif transformation == "Resize":
-            final_image = resized_image
-        elif transformation == "Skew":
-            final_image = skewed_image
-        elif transformation == "Brightness":
-            final_image = bright_image
-        elif transformation == "Transparency":
-            final_image = transparent_image
-        else:
-            final_image = image  # Default fallback
-
-        # Menambahkan fitur download gambar
-        img_bytes = image_to_bytes(final_image, format=download_format)
-        st.download_button(
-            label="Download Image",
-            data=img_bytes,
-            file_name=f"transformed_image.{download_format.lower()}",
-            mime=f"image/{download_format.lower()}"
-        )
