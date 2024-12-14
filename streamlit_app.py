@@ -24,15 +24,21 @@ st.markdown(
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column; /* Pusatkan semua elemen secara vertikal */
+        flex-direction: column;
+        text-align: center; /* Pusatkan teks dan elemen di tengah secara horizontal */
     }}
     .container {{
         text-align: center;
+        margin-top: 20px;
     }}
     img {{
         display: block;
         margin: 0 auto; /* Pusatkan gambar */
         width: 300px; /* Ukuran logo */
+    }}
+    h2, h3 {{
+        color: #333333;
+        text-align: center; /* Pusatkan teks */
     }}
     </style>
     """, unsafe_allow_html=True)
