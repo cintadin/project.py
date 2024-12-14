@@ -24,12 +24,11 @@ st.markdown(
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
-        text-align: center; /* Pusatkan teks dan elemen di tengah secara horizontal */
+        flex-direction: column; /* Pusatkan semua elemen secara vertikal */
+        text-align: center; /* Teks selalu rata tengah */
     }}
     .container {{
         text-align: center;
-        margin-top: 20px;
     }}
     img {{
         display: block;
@@ -38,10 +37,11 @@ st.markdown(
     }}
     h2, h3 {{
         color: #333333;
-        text-align: center; /* Pusatkan teks */
+        margin: 10px 0; /* Ruang antar teks */
     }}
     </style>
-    """, unsafe_allow_html=True)
+    """, unsafe_allow_html=True
+)
 
 # Menampilkan logo di tengah halaman
 st.markdown("<div class='container'>", unsafe_allow_html=True)
