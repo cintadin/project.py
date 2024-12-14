@@ -8,7 +8,7 @@ st.set_page_config(page_title="Project Final Exam", layout="centered")
 
 # Atur path file lokal untuk gambar latar belakang dan logo
 background_image_path = r"C:\Users\Lenovo\OneDrive\Gambar\Presiden t1.jpg"  # Pastikan path-nya benar
-logo_image_path = r"C:\Users\Lenovo\belajar\LINEAR ALGEBRA\project final exam\President_University_Logo.png"  # Ganti dengan path logo yang sesuai
+logo_image_path = "President_University_Logo.png"  # Ganti dengan path logo yang sesuai
 
 # Gunakan CSS untuk menambahkan gambar latar belakang dan styling lainnya
 st.markdown(
@@ -43,15 +43,11 @@ st.markdown(
         font-size: 18px;
         color: #555555;
     }}
-    .logo {{
-        width: 150px;  /* Menentukan ukuran logo */
-        margin-bottom: 20px;
-    }}
     </style>
     """, unsafe_allow_html=True)
 
-# Menampilkan logo di atas halaman
-st.markdown(f'<img class="logo" src="file:///{logo_image_path}" alt="Logo">', unsafe_allow_html=True)
+# Menampilkan logo di atas halaman menggunakan st.image()
+st.image(logo_image_path, width=150, caption="Project Logo")
 
 # Navigasi sidebar
 with st.sidebar:
