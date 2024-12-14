@@ -156,4 +156,42 @@ elif select == "Application":
             if image.mode != 'RGBA':
                 image = image.convert('RGBA')
             data = np.array(image)
-            data[..., 3] = (data[..., 
+            data[..., 3] = (data[..., 3] * transparency).astype(np.uint8)
+            transparent_image = Image.fromarray(data, 'RGBA')
+            st.image(transparent_image, caption="Transparency Adjusted Image", use_container_width=True)
+
+        elif transformation == "Remove Background":
+            st.warning("Remove background feature requires additional processing, and currently, we don't have the implementation for this.")
+
+        # Fitur untuk mendownload gambar hasil transformasi
+        st.subheader("Download Transformed Image")
+        download_format = st.selectbox("Choose download format", ["PNG", "JPEG", "PDF"])
+
+        # Pastikan gambar yang ditampilkan adalah gambar yang benar
+        if transformation == "Rotate":
+            final_image = rotated_image
+        elif transformation == "Translate":
+            final_image = translated_image
+        elif transformation == "Scale":
+            final_image = scaled_image
+        elif transformation == "Shear":
+            final_image = sheared_image
+        elif transformation == "Resize":
+            final_image = resized_image
+        elif transformation == "Skew":
+            final_image = skewed_image
+        elif transformation == "Brightness":
+            final_image = bright_image
+        elif transformation == "Transparency":
+            final_image = transparent_image
+        else:
+            final_image = image  # Default fallback
+
+        # Menambahkan fitur download gambar
+        img_bytes = image_to_bytes(final_image, format=download_format)
+        st.download_button(
+            label="Download Image",
+            data=img_bytes,
+            file_name=f"transformed_image.{download_format.lower()}",
+            mime=f"image/{download_format.lower()}"
+        )
