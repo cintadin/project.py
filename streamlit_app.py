@@ -2,7 +2,6 @@ import streamlit as st
 from streamlit_option_menu import option_menu  # type: ignore
 from PIL import Image, ImageEnhance
 import numpy as np
-import cv2
 import io
 
 # Konfigurasi halaman
@@ -75,9 +74,12 @@ elif select == "Application":
         elif transformation == "Translate":
             tx = st.slider("Translate X (pixels)", min_value=-500, max_value=500, value=0, step=1)
             ty = st.slider("Translate Y (pixels)", min_value=-500, max_value=500, value=0, step=1)
-            img_array = np.array(image)  # Konversi gambar PIL ke numpy array
-            M = np.float32([[1, 0, tx], [0, 1, ty]])  # Matriks translasi
-            translated_image = cv2.warpAffine(img_array, M, (img_array.shape[1], img_array.shape[0]))
+            translated_image = image.transform(
+                image.size,
+                Image.AFFINE,
+                (1, 0, tx, 0, 1, ty),
+                resample=Image.BICUBIC
+            )
             st.image(translated_image, caption="Translated Image", use_container_width=True)
 
         elif transformation == "Scale":
@@ -89,10 +91,8 @@ elif select == "Application":
 
         elif transformation == "Shear":
             shear_factor = st.slider("Enter Shear Factor", min_value=0.0, max_value=10.0, value=1.0, step=0.1)
-            img_array = np.array(image)  # Konversi gambar PIL ke numpy array
-            rows, cols = img_array.shape[:2]
-            M = np.float32([[1, shear_factor, 0], [0, 1, 0]])  # Matriks shear
-            sheared_image = cv2.warpAffine(img_array, M, (cols, rows))
+            shear_matrix = (1, shear_factor, 0, 0, 1, 0)
+            sheared_image = image.transform(image.size, Image.AFFINE, shear_matrix, resample=Image.BICUBIC)
             st.image(sheared_image, caption="Sheared Image", use_container_width=True)
 
         elif transformation == "Resize":
@@ -103,10 +103,8 @@ elif select == "Application":
 
         elif transformation == "Skew":
             skew_factor = st.slider("Enter Skew Factor", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
-            img_array = np.array(image)  # Konversi gambar PIL ke numpy array
-            rows, cols = img_array.shape[:2]
-            M = np.float32([[1, skew_factor, 0], [0, 1, 0]])  # Matriks skew
-            skewed_image = cv2.warpAffine(img_array, M, (cols, rows))
+            skew_matrix = (1, skew_factor, 0, 0, 1, 0)
+            skewed_image = image.transform(image.size, Image.AFFINE, skew_matrix, resample=Image.BICUBIC)
             st.image(skewed_image, caption="Skewed Image", use_container_width=True)
 
         elif transformation == "Brightness":
@@ -152,3 +150,29 @@ elif select == "Application":
             final_image = image  # Default fallback
 
         # Download button
+        if download_format == "PNG":
+            img_bytes = image_to_bytes(final_image, format="PNG")
+            st.download_button(
+                label="Download as PNG",
+                data=img_bytes,
+                file_name="transformed_image.png",
+                mime="image/png"
+            )
+        elif download_format == "JPEG":
+            img_bytes = image_to_bytes(final_image, format="JPEG")
+            st.download_button(
+                label="Download as JPEG",
+                data=img_bytes,
+                file_name="transformed_image.jpg",
+                mime="image/jpeg"
+            )
+        elif download_format == "PDF":
+            pdf_bytes = io.BytesIO()
+            final_image.convert("RGB").save(pdf_bytes, format="PDF")
+            pdf_bytes.seek(0)
+            st.download_button(
+                label="Download as PDF",
+                data=pdf_bytes,
+                file_name="transformed_image.pdf",
+                mime="application/pdf"
+            )
