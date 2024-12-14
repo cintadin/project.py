@@ -82,7 +82,6 @@ if select == 'Introduction':
     st.markdown("<p class='content'>Chyntia Adinda Ramadani (004202305053)</p>", unsafe_allow_html=True)
     st.markdown("<p class='content'>Ratu Enjelita (004202305032)</p>", unsafe_allow_html=True)
     st.markdown("<p class='content'>Salsabilla Clarysa Putri (004202305016)</p>", unsafe_allow_html=True)
-    st.image("President_University_Logo.png", use_container_width=True)
 
     st.markdown("<p class='subheader'>Program Study</p>", unsafe_allow_html=True)
     st.markdown("<p class='content'>Industrial Engineering</p>", unsafe_allow_html=True)
