@@ -2,19 +2,28 @@ import streamlit as st
 from streamlit_option_menu import option_menu  # type: ignore
 from PIL import Image
 import numpy as np
+import base64
 
 # Konfigurasi halaman
 st.set_page_config(page_title="Project Final Exam", layout="centered")
 
-# Atur path file lokal untuk gambar latar belakang
-background_image_path = r"C:\Users\Lenovo\OneDrive\Gambar\Presiden t1.jpg"  # Pastikan path-nya benar
+# Fungsi untuk mengonversi gambar ke base64 (untuk latar belakang)
+@st.experimental_memo
+def get_img_as_base64(file):
+    with open(file, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
 
-# Gunakan CSS untuk menambahkan gambar latar belakang
-st.markdown(
-    f"""
+# Pilihan untuk mengunggah gambar latar belakang
+uploaded_bg_image = st.sidebar.file_uploader("Upload Background Image", type=["jpg", "png", "jpeg"])
+
+# Jika gambar latar belakang diunggah, gunakan gambar tersebut
+if uploaded_bg_image is not None:
+    img = get_img_as_base64(uploaded_bg_image)
+    page_bg_img = f"""
     <style>
     body {{
-        background-image: url('file:///{background_image_path}');
+        background-image: url("data:image/png;base64,{img}");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -42,7 +51,45 @@ st.markdown(
         color: #555555;
     }}
     </style>
-    """, unsafe_allow_html=True)
+    """
+else:
+    # Gambar latar belakang default jika tidak ada file yang diunggah
+    background_image_path = "https://images.unsplash.com/photo-1501426026826-31c667bdf23d"  # Gambar default
+    page_bg_img = f"""
+    <style>
+    body {{
+        background-image: url("{background_image_path}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        margin: 0;
+    }}
+    .container {{
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+    }}
+    .title {{
+        font-size: 36px;
+        font-weight: bold;
+        color: #333333;
+        text-align: center;
+    }}
+    .subheader {{
+        font-size: 24px;
+        font-weight: bold;
+        color: #4CAF50;
+    }}
+    .content {{
+        font-size: 18px;
+        color: #555555;
+    }}
+    </style>
+    """
+
+# Terapkan CSS untuk latar belakang
+st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Navigasi sidebar
 with st.sidebar:
