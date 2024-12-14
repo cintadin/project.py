@@ -9,11 +9,11 @@ st.set_page_config(page_title="Rotate and Download Image", layout="centered")
 with st.sidebar:
     st.title("Group Members")
     st.write("1. Chyntia Adinda Ramadani")
-    st.image("cinta2.jpg", caption="Chyntia Adinda Ramadani", use_column_width=True)
+    st.image("cinta2.jpg", caption="Chyntia Adinda Ramadani", use_container_width=True)
     st.write("2. Salsabilla Clarysa Putri")
-    st.image("salsa2.jpg", caption="Salsabilla Clarysa Putri", use_column_width=True)
+    st.image("salsa2.jpg", caption="Salsabilla Clarysa Putri", use_container_width=True)
     st.write("3. Ratu Enjelita")
-    st.image("ratu2.jpg", caption="Ratu Enjelita", use_column_width=True)
+    st.image("ratu2.jpg", caption="Ratu Enjelita", use_container_width=True)
 
 # Judul halaman
 st.title("Image Rotation and Download Application")
