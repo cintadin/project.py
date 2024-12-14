@@ -1,7 +1,2 @@
 streamlit
 Pillow
-streamlit-option-menu
-opencv-python-headless
-numpy
-base64
-cv2
