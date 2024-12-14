@@ -16,7 +16,7 @@ with st.sidebar:
     st.image("ratu2.jpg", caption="Ratu Enjelita", use_container_width=True)
 
 # Judul halaman
-st.image("President_University_Logo.png",width=150, use_container_width=True)
+st.image("President_University_Logo.png",width=50, use_container_width=True)
 st.title("Image Rotation and Download Application")
 
 # Upload gambar
