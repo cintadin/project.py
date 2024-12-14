@@ -1,2 +1,6 @@
 streamlit
 pillow
+numpy
+cv2
+base64
+streamlit_option_menu
