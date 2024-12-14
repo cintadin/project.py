@@ -8,7 +8,6 @@ import base64
 st.set_page_config(page_title="Project Final Exam", layout="centered")
 
 # Fungsi untuk mengonversi gambar ke base64 (untuk latar belakang)
-@st.experimental_memo
 def get_img_as_base64(file):
     with open(file, "rb") as f:
         data = f.read()
