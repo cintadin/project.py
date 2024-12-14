@@ -23,7 +23,8 @@ with st.sidebar:
     )
 
 # Menambahkan gambar latar belakang dengan CSS
-background_image = "C:\Users\Lenovo\OneDrive\Gambar\pleciden.jpeg"  # Ganti dengan path ke gambar latar belakang Anda
+background_image =
+st.image("Presiden t1.jpg") # Ganti dengan path ke gambar latar belakang Anda
 st.markdown(
     f"""
     <style>
