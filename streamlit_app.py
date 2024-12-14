@@ -73,8 +73,13 @@ if select == 'Introduction':
     # Header dan logo
     st.markdown("<div class='container'>", unsafe_allow_html=True)
     st.markdown("<p class='title'>INTRODUCTION</p>", unsafe_allow_html=True)
-    st.markdown("<img src='data:image/png;base64,{}' class='logo'>".format(
-        base64.b64encode(open("President_University_Logo.png", "rb").read()).decode()), unsafe_allow_html=True)
+
+    # Encode logo image to base64 and display
+    logo_path = "President_University_Logo.png"  # Definisikan logo_path
+    with open(logo_path, "rb") as img_file:
+        logo_base64 = base64.b64encode(img_file.read()).decode()
+
+    st.markdown(f"<img src='data:image/png;base64,{logo_base64}' class='logo'>", unsafe_allow_html=True)
 
     # Informasi kelompok
     st.markdown("<p class='subheader'>Group 3 IEN 1 2024</p>", unsafe_allow_html=True)
