@@ -5,6 +5,13 @@ import io
 # Konfigurasi halaman
 st.set_page_config(page_title="Rotate and Download Image", layout="centered")
 
+# Sidebar untuk menampilkan nama anggota
+with st.sidebar:
+    st.title("Group Members")
+    st.write("1. Chyntia Adinda Ramadani")
+    st.write("2. Salsabilla Clarysa Putri")
+    st.write("3. Ratu Enjelita")
+
 # Judul halaman
 st.title("Image Rotation and Download Application")
 
