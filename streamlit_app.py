@@ -7,6 +7,13 @@ import io
 # Konfigurasi halaman
 st.set_page_config(page_title="Project Final Exam", layout="centered")
 
+# Fungsi untuk mengubah gambar menjadi byte stream
+def image_to_bytes(img, format='PNG'):
+    img_byte_arr = io.BytesIO()
+    img.save(img_byte_arr, format=format)
+    img_byte_arr.seek(0)
+    return img_byte_arr
+
 # Navigasi sidebar
 with st.sidebar:
     select = option_menu(
@@ -49,7 +56,58 @@ elif select == "Application":
     st.markdown("<p class='title'>APPLICATION DESCRIPTION</p>", unsafe_allow_html=True)
     st.markdown("<p class='content'>This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, and transparency. Users can choose the type of transformation and adjust parameters as desired, as well as see the results of image changes directly, making it easier to edit images as needed.</p>", unsafe_allow_html=True)
 
-    # Upload gambar
+    # Upload gambar background
+    uploaded_bg = st.file_uploader("Upload Background Image", type=["jpg", "png", "jpeg"])
+
+    if uploaded_bg is not None:
+        # Menampilkan gambar background
+        bg_image = Image.open(uploaded_bg)
+        st.image(bg_image, caption="Background Image", use_container_width=True)
+
+        # Mengambil gambar dan mengubahnya menjadi URL base64
+        import base64
+        from io import BytesIO
+
+        buffered = BytesIO()
+        bg_image.save(buffered, format="PNG")
+        img_str = base64.b64encode(buffered.getvalue()).decode()
+
+        # Menambahkan gambar sebagai background menggunakan CSS
+        st.markdown(
+            f"""
+            <style>
+            body {{
+                background-image: url(data:image/png;base64,{img_str});
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                height: 100vh;
+            }}
+            .container {{
+                background-color: rgba(255, 255, 255, 0.8);
+                padding: 20px;
+                border-radius: 10px;
+            }}
+            .title {{
+                font-size: 36px;
+                font-weight: bold;
+                color: #333333;
+                text-align: center;
+            }}
+            .subheader {{
+                font-size: 24px;
+                font-weight: bold;
+                color: #4CAF50;
+            }}
+            .content {{
+                font-size: 18px;
+                color: #555555;
+            }}
+            </style>
+            """, unsafe_allow_html=True
+        )
+
+    # Upload gambar untuk transformasi
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
 
     if uploaded_file is not None:
@@ -58,13 +116,6 @@ elif select == "Application":
 
         # Pilih jenis transformasi
         transformation = st.selectbox("Select Transformation", ["Select", "Rotate", "Translate", "Scale", "Shear", "Resize", "Skew", "Brightness", "Transparency", "Remove Background"])
-
-        # Fungsi untuk mengubah gambar menjadi byte stream
-        def image_to_bytes(img, format='PNG'):
-            img_byte_arr = io.BytesIO()
-            img.save(img_byte_arr, format=format)
-            img_byte_arr.seek(0)
-            return img_byte_arr
 
         if transformation == "Rotate":
             angle = st.slider("Enter Rotation Angle (degrees)", min_value=0, max_value=360, value=90, step=1)
@@ -124,55 +175,3 @@ elif select == "Application":
 
         elif transformation == "Remove Background":
             st.warning("Remove background feature requires additional processing, and currently, we don't have the implementation for this.")
-
-        # Fitur untuk mendownload gambar hasil transformasi
-        st.subheader("Download Transformed Image")
-        download_format = st.selectbox("Choose download format", ["PNG", "JPEG", "PDF"])
-
-        # Pastikan gambar yang ditampilkan adalah gambar yang benar
-        if transformation == "Rotate":
-            final_image = rotated_image
-        elif transformation == "Translate":
-            final_image = translated_image
-        elif transformation == "Scale":
-            final_image = scaled_image
-        elif transformation == "Shear":
-            final_image = sheared_image
-        elif transformation == "Resize":
-            final_image = resized_image
-        elif transformation == "Skew":
-            final_image = skewed_image
-        elif transformation == "Brightness":
-            final_image = bright_image
-        elif transformation == "Transparency":
-            final_image = transparent_image
-        else:
-            final_image = image  # Default fallback
-
-        # Download button
-        if download_format == "PNG":
-            img_bytes = image_to_bytes(final_image, format="PNG")
-            st.download_button(
-                label="Download as PNG",
-                data=img_bytes,
-                file_name="transformed_image.png",
-                mime="image/png"
-            )
-        elif download_format == "JPEG":
-            img_bytes = image_to_bytes(final_image, format="JPEG")
-            st.download_button(
-                label="Download as JPEG",
-                data=img_bytes,
-                file_name="transformed_image.jpg",
-                mime="image/jpeg"
-            )
-        elif download_format == "PDF":
-            pdf_bytes = io.BytesIO()
-            final_image.convert("RGB").save(pdf_bytes, format="PDF")
-            pdf_bytes.seek(0)
-            st.download_button(
-                label="Download as PDF",
-                data=pdf_bytes,
-                file_name="transformed_image.pdf",
-                mime="application/pdf"
-            )
