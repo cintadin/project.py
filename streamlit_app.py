@@ -8,7 +8,8 @@ import io
 st.set_page_config(page_title="Project Final Exam", layout="centered")
 
 # Atur path file lokal untuk gambar latar belakang
-background_image_path = r"C:\\Users\\Lenovo\\OneDrive\\Gambar\\Presiden t1.jpg"  # Pastikan path-nya benar
+background_image =
+st.image("Presiden t1.jpg") # Pastikan path-nya benar
 
 # Gunakan CSS untuk menambahkan gambar latar belakang
 st.markdown(
