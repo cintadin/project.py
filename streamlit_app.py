@@ -10,7 +10,7 @@ st.set_page_config(page_title="Project Final Exam", layout="centered")
 background_image_path = r"C:\Users\Lenovo\OneDrive\Gambar\Presiden t1.jpg"  # Pastikan path-nya benar
 logo_image_path = "President_University_Logo.png"  # Ganti dengan path logo yang sesuai
 
-# Gunakan CSS untuk styling dan latar belakang
+# Gunakan CSS untuk styling latar belakang dan posisi logo
 st.markdown(
     f"""
     <style>
@@ -24,21 +24,23 @@ st.markdown(
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column; /* Pusatkan semua elemen secara vertikal */
-        text-align: center;
+        flex-direction: column; /* Susun elemen secara vertikal */
+    }}
+    .logo {{
+        display: block;
+        margin: auto;
+        width: 300px; /* Ukuran logo */
     }}
     .container {{
         background-color: rgba(255, 255, 255, 0.8);
         padding: 20px;
         border-radius: 10px;
         text-align: center;
-        display: inline-block; /* Pusatkan container */
     }}
     .title {{
         font-size: 36px;
         font-weight: bold;
         color: #333333;
-        text-align: center;
     }}
     .subheader {{
         font-size: 32px;  /* Ukuran font lebih besar */
@@ -49,19 +51,12 @@ st.markdown(
     .content {{
         font-size: 18px;
         color: #555555;
-        text-align: center;
-    }}
-    img {{
-        display: block;
-        margin: 0 auto; /* Pusatkan gambar */
     }}
     </style>
     """, unsafe_allow_html=True)
 
-# Menampilkan logo di atas halaman
-st.markdown("<div class='container'>", unsafe_allow_html=True)
-st.image(logo_image_path, width=300, caption="President University Logo")  # Perbesar dan pusatkan logo
-st.markdown("</div>", unsafe_allow_html=True)
+# Menampilkan logo di tengah halaman
+st.markdown(f"<img class='logo' src='file:///{logo_image_path}' alt='Logo'>", unsafe_allow_html=True)
 
 # Navigasi sidebar
 with st.sidebar:
