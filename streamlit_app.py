@@ -20,17 +20,18 @@ st.markdown(
         background-repeat: no-repeat;
         height: 100vh;
         margin: 0;
+        text-align: center;  /* Menambahkan agar semua teks terpusat */
     }}
     .container {{
         background-color: rgba(255, 255, 255, 0.8);
         padding: 20px;
         border-radius: 10px;
+        text-align: center;  /* Menambahkan agar teks di dalam container terpusat */
     }}
     .title {{
         font-size: 36px;
         font-weight: bold;
         color: #333333;
-        text-align: center;
     }}
     .subheader {{
         font-size: 24px;
