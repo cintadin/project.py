@@ -1,5 +1,5 @@
 import streamlit as st
-from streamlit_option_menu import option_menu # type: ignore
+from streamlit_option_menu import option_menu  # type: ignore
 from PIL import Image, ImageEnhance
 import numpy as np
 import cv2
@@ -74,8 +74,7 @@ if select == 'Introduction':
     st.markdown("<div class='container'>", unsafe_allow_html=True)
     st.markdown("<p class='title'>INTRODUCTION</p>", unsafe_allow_html=True)
     st.markdown("<img src='data:image/png;base64,{}' class='logo'>".format(
-        base64.b64encode(open"President_University_Logo.jpg"", "rb").read()).decode()),
-        unsafe_allow_html=True)
+        base64.b64encode(open("President_University_Logo.jpg", "rb").read()).decode()), unsafe_allow_html=True)
 
     # Informasi kelompok
     st.markdown("<p class='subheader'>Group 3 IEN 1 2024</p>", unsafe_allow_html=True)
@@ -93,15 +92,15 @@ if select == 'Introduction':
     st.markdown("<p class='subheader'>Member Photo</p>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.image(cinta2.jpg", caption="Chyntia Adinda", use_container_width=True)
+        st.image("cinta2.jpg", caption="Chyntia Adinda", use_container_width=True)
     with col2:
-        st.image(ratu2.jpg", caption="Ratu Engelita", use_container_width=True)
+        st.image("ratu2.jpg", caption="Ratu Engelita", use_container_width=True)
     with col3:
-        st.image(salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True)
+        st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True)
 
 elif select == 'Application':
     # Deskripsi aplikasi
-    st.markdown("<p class='title'>APLICATION DESCRIPTION</p>", unsafe_allow_html=True)
+    st.markdown("<p class='title'>APPLICATION DESCRIPTION</p>", unsafe_allow_html=True)
     st.markdown("<p class='content'>This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, and transparency. Users can choose the type of transformation and adjust parameters as desired, as well as see the results of image changes directly, making it easier to edit images as needed.</p>", unsafe_allow_html=True)
 
     # Deskripsi aplikasi
