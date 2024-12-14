@@ -2,6 +2,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu  # type: ignore
 from PIL import Image, ImageEnhance
 import numpy as np
+import cv2
 import io
 
 # Konfigurasi halaman
@@ -74,7 +75,7 @@ elif select == "Application":
         elif transformation == "Translate":
             tx = st.slider("Translate X (pixels)", min_value=-500, max_value=500, value=0, step=1)
             ty = st.slider("Translate Y (pixels)", min_value=-500, max_value=500, value=0, step=1)
-            img_array = np.array(image)
+            img_array = np.array(image)  # Konversi gambar PIL ke numpy array
             M = np.float32([[1, 0, tx], [0, 1, ty]])  # Matriks translasi
             translated_image = cv2.warpAffine(img_array, M, (img_array.shape[1], img_array.shape[0]))
             st.image(translated_image, caption="Translated Image", use_container_width=True)
@@ -88,7 +89,7 @@ elif select == "Application":
 
         elif transformation == "Shear":
             shear_factor = st.slider("Enter Shear Factor", min_value=0.0, max_value=10.0, value=1.0, step=0.1)
-            img_array = np.array(image)
+            img_array = np.array(image)  # Konversi gambar PIL ke numpy array
             rows, cols = img_array.shape[:2]
             M = np.float32([[1, shear_factor, 0], [0, 1, 0]])  # Matriks shear
             sheared_image = cv2.warpAffine(img_array, M, (cols, rows))
@@ -102,7 +103,7 @@ elif select == "Application":
 
         elif transformation == "Skew":
             skew_factor = st.slider("Enter Skew Factor", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
-            img_array = np.array(image)
+            img_array = np.array(image)  # Konversi gambar PIL ke numpy array
             rows, cols = img_array.shape[:2]
             M = np.float32([[1, skew_factor, 0], [0, 1, 0]])  # Matriks skew
             skewed_image = cv2.warpAffine(img_array, M, (cols, rows))
@@ -130,29 +131,24 @@ elif select == "Application":
         st.subheader("Download Transformed Image")
         download_format = st.selectbox("Choose download format", ["PNG", "JPEG", "PDF"])
 
-        if download_format == "PNG":
-            img_bytes = image_to_bytes(rotated_image, format="PNG")
-            st.download_button(
-                label="Download as PNG",
-                data=img_bytes,
-                file_name="transformed_image.png",
-                mime="image/png"
-            )
-        elif download_format == "JPEG":
-            img_bytes = image_to_bytes(rotated_image, format="JPEG")
-            st.download_button(
-                label="Download as JPEG",
-                data=img_bytes,
-                file_name="transformed_image.jpg",
-                mime="image/jpeg"
-            )
-        elif download_format == "PDF":
-            pdf_bytes = io.BytesIO()
-            rotated_image.convert("RGB").save(pdf_bytes, format="PDF")
-            pdf_bytes.seek(0)
-            st.download_button(
-                label="Download as PDF",
-                data=pdf_bytes,
-                file_name="transformed_image.pdf",
-                mime="application/pdf"
-            )
+        # Pastikan gambar yang ditampilkan adalah gambar yang benar
+        if transformation == "Rotate":
+            final_image = rotated_image
+        elif transformation == "Translate":
+            final_image = translated_image
+        elif transformation == "Scale":
+            final_image = scaled_image
+        elif transformation == "Shear":
+            final_image = sheared_image
+        elif transformation == "Resize":
+            final_image = resized_image
+        elif transformation == "Skew":
+            final_image = skewed_image
+        elif transformation == "Brightness":
+            final_image = bright_image
+        elif transformation == "Transparency":
+            final_image = transparent_image
+        else:
+            final_image = image  # Default fallback
+
+        # Download button
