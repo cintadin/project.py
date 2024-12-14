@@ -8,7 +8,6 @@ st.set_page_config(page_title="Project Final Exam", layout="centered")
 
 # Atur path file lokal untuk gambar latar belakang dan logo
 background_image_path = r"C:\Users\Lenovo\OneDrive\Gambar\Presiden t1.jpg"  # Pastikan path-nya benar
-    st.image("ratu2.jpg", use_container_width=True)  
 
 # Gunakan CSS untuk menambahkan gambar latar belakang dan styling lainnya
 st.markdown(
