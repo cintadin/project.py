@@ -8,55 +8,6 @@ import base64
 # Konfigurasi halaman
 st.set_page_config(page_title="Kelompok Project", layout="centered")
 
-# Fungsi untuk mengubah file gambar lokal menjadi Base64
-def set_background_image(image_path):
-    try:
-        with open(image_path, "rb") as img_file:
-            encoded = base64.b64encode(img_file.read()).decode()
-        st.markdown(
-            f"""
-            <style>
-            [data-testid="stAppViewContainer"] {{
-                background-image: url("data:image/png;base64,{encoded}");
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-            }}
-            [data-testid="stSidebar"] {{
-                background-color: rgba(255, 255, 255, 0.8);
-            }}
-            .title {{
-                font-size: 50px !important;
-                color: black;
-                text-align: center;
-                font-weight: bold;
-            }}
-            .subheader {{
-                font-size: 35px !important;
-                color: black;
-                text-align: center;
-                font-weight: bold;
-                margin-top: 50px;  /* Menambahkan jarak antar subheader */
-            }}
-            .content {{
-                font-size: 100px;
-                color: black;
-                text-align: center;
-            }}
-            .logo {{
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-                width: 300px;
-                padding-bottom: 40px;
-            }}
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-    except FileNotFoundError:
-        st.error(f"File background tidak ditemukan. Periksa path gambar Anda.")
-
 # Navigasi sidebar
 with st.sidebar:
     select = option_menu(
@@ -71,17 +22,23 @@ if select == 'Introduction':
     st.markdown("<p class='title'>INTRODUCTION</p>", unsafe_allow_html=True)
 
     # Encode logo image to base64 and display
-    logo_path = "President_University_Logo.png"  # Directly use the image file path
-    with open(logo_path, "rb") as img_file:
-        logo_base64 = base64.b64encode(img_file.read()).decode()
+    logo_path = "President_University_Logo.png"  # Gambar logo yang benar
+    try:
+        with open(logo_path, "rb") as img_file:
+            logo_base64 = base64.b64encode(img_file.read()).decode()
 
-    st.markdown(f"<img src='data:image/png;base64,{logo_base64}' class='logo'>", unsafe_allow_html=True)
+        st.markdown(f"<img src='data:image/png;base64,{logo_base64}' class='logo'>", unsafe_allow_html=True)
+    except FileNotFoundError:
+        st.error("Logo file not found!")
 
     # Informasi kelompok
     st.markdown("<p class='subheader'>Group 3 IEN 1 2024</p>", unsafe_allow_html=True)
     st.markdown("<p class='content'>Chyntia Adinda Ramadani (004202305053)</p>", unsafe_allow_html=True)
     st.markdown("<p class='content'>Ratu Enjelita (004202305032)</p>", unsafe_allow_html=True)
     st.markdown("<p class='content'>Salsabilla Clarysa Putri (004202305016)</p>", unsafe_allow_html=True)
+    
+    # Tampilkan gambar logo universitas
+    st.image("President_University_Logo.png", use_container_width=True)
 
     st.markdown("<p class='subheader'>Program Study</p>", unsafe_allow_html=True)
     st.markdown("<p class='content'>Industrial Engineering</p>", unsafe_allow_html=True)
