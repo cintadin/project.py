@@ -10,7 +10,7 @@ st.set_page_config(page_title="Project Final Exam", layout="centered")
 background_image_path = r"C:\Users\Lenovo\OneDrive\Gambar\Presiden t1.jpg"  # Pastikan path-nya benar
 logo_image_path = "President_University_Logo.png"  # Ganti dengan path logo yang sesuai
 
-# Gunakan CSS untuk styling dan pusatkan semua elemen di halaman utama
+# Gunakan CSS untuk styling dan latar belakang
 st.markdown(
     f"""
     <style>
@@ -24,35 +24,22 @@ st.markdown(
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column; /* Elemen berada di tengah secara vertikal */
-        text-align: center;    /* Elemen berada di tengah secara horizontal */
+        flex-direction: column; /* Pusatkan semua elemen secara vertikal */
     }}
     .container {{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(255, 255, 255, 0.8); /* Warna latar belakang semi-transparan */
-        padding: 20px;
-        border-radius: 15px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
     }}
-    .logo {{
-        width: 200px; /* Ukuran logo */
-        margin-bottom: 20px; /* Jarak antara logo dan teks */
-    }}
-    .text {{
-        font-size: 24px; /* Ukuran teks */
-        color: #333333; /* Warna teks */
-        font-weight: bold;
+    img {{
+        display: block;
+        margin: 0 auto; /* Pusatkan gambar */
+        width: 300px; /* Ukuran logo */
     }}
     </style>
     """, unsafe_allow_html=True)
 
-# Menampilkan logo dan teks di tengah halaman
+# Menampilkan logo di tengah halaman
 st.markdown("<div class='container'>", unsafe_allow_html=True)
-st.markdown(f"<img src='file:///{logo_image_path}' class='logo'>", unsafe_allow_html=True)
-st.markdown("<p class='text'>Project Final Exam</p>", unsafe_allow_html=True)
+st.image(logo_image_path, width=300)  # Logo di tengah
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Navigasi sidebar
@@ -65,17 +52,35 @@ with st.sidebar:
 
 # Menu "Introduction"
 if select == "Introduction":
-    st.markdown("<h2 style='text-align: center;'>INTRODUCTION</h2>", unsafe_allow_html=True)
-    st.write("**Group Members:**")
-    st.write("- Chyntia Adinda Ramadani (004202305053)")
-    st.write("- Ratu Enjelita (004202305032)")
-    st.write("- Salsabilla Clarysa Putri (004202305016)")
-    st.write("**Program Study:** Industrial Engineering")
-    st.write("**Faculty:** Engineering")
+    # Header
+    st.markdown("<div class='container'>", unsafe_allow_html=True)
+    st.markdown("<h2>INTRODUCTION</h2>", unsafe_allow_html=True)
+
+    # Informasi anggota
+    st.markdown("<h3>Group Members</h3>", unsafe_allow_html=True)
+    st.write("Chyntia Adinda Ramadani (004202305053)")
+    st.write("Ratu Enjelita (004202305032)")
+    st.write("Salsabilla Clarysa Putri (004202305016)")
+
+    # Program studi dan fakultas
+    st.markdown("<h3>Program Study</h3>", unsafe_allow_html=True)
+    st.write("Industrial Engineering")
+    st.markdown("<h3>Faculty</h3>", unsafe_allow_html=True)
+    st.write("Engineering")
+
+    # Foto anggota
+    st.markdown("<h3>Member Photo</h3>", unsafe_allow_html=True)
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.image("cinta2.jpg", caption="Chyntia Adinda", use_container_width=True)
+    with col2:
+        st.image("ratu2.jpg", caption="Ratu Enjelita", use_container_width=True)
+    with col3:
+        st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True) 
 
 # Menu "Application"
 elif select == "Application":
-    st.markdown("<h2 style='text-align: center;'>APPLICATION DESCRIPTION</h2>", unsafe_allow_html=True)
+    st.markdown("<h2>APPLICATION DESCRIPTION</h2>", unsafe_allow_html=True)
     st.write(
         "This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, and transparency."
     )
