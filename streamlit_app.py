@@ -22,6 +22,41 @@ with st.sidebar:
         default_index=0
     )
 
+# Menambahkan gambar latar belakang dengan CSS
+background_image = "C:\Users\Lenovo\OneDrive\Gambar\pleciden.jpeg"  # Ganti dengan path ke gambar latar belakang Anda
+st.markdown(
+    f"""
+    <style>
+    body {{
+        background-image: url('{background_image}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+    }}
+    .container {{
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+    }}
+    .title {{
+        font-size: 36px;
+        font-weight: bold;
+        color: #333333;
+        text-align: center;
+    }}
+    .subheader {{
+        font-size: 24px;
+        font-weight: bold;
+        color: #4CAF50;
+    }}
+    .content {{
+        font-size: 18px;
+        color: #555555;
+    }}
+    </style>
+    """, unsafe_allow_html=True)
+
 # Menu "Introduction"
 if select == "Introduction":
     # Header
@@ -55,57 +90,6 @@ elif select == "Application":
     # Deskripsi aplikasi
     st.markdown("<p class='title'>APPLICATION DESCRIPTION</p>", unsafe_allow_html=True)
     st.markdown("<p class='content'>This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, and transparency. Users can choose the type of transformation and adjust parameters as desired, as well as see the results of image changes directly, making it easier to edit images as needed.</p>", unsafe_allow_html=True)
-
-    # Upload gambar background
-    uploaded_bg = st.file_uploader("Upload Background Image", type=["jpg", "png", "jpeg"])
-
-    if uploaded_bg is not None:
-        # Menampilkan gambar background
-        bg_image = Image.open(uploaded_bg)
-        st.image(bg_image, caption="Background Image", use_container_width=True)
-
-        # Mengambil gambar dan mengubahnya menjadi URL base64
-        import base64
-        from io import BytesIO
-
-        buffered = BytesIO()
-        bg_image.save(buffered, format="PNG")
-        img_str = base64.b64encode(buffered.getvalue()).decode()
-
-        # Menambahkan gambar sebagai background menggunakan CSS
-        st.markdown(
-            f"""
-            <style>
-            body {{
-                background-image: url(data:image/png;base64,{img_str});
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-                height: 100vh;
-            }}
-            .container {{
-                background-color: rgba(255, 255, 255, 0.8);
-                padding: 20px;
-                border-radius: 10px;
-            }}
-            .title {{
-                font-size: 36px;
-                font-weight: bold;
-                color: #333333;
-                text-align: center;
-            }}
-            .subheader {{
-                font-size: 24px;
-                font-weight: bold;
-                color: #4CAF50;
-            }}
-            .content {{
-                font-size: 18px;
-                color: #555555;
-            }}
-            </style>
-            """, unsafe_allow_html=True
-        )
 
     # Upload gambar untuk transformasi
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
