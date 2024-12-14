@@ -15,8 +15,12 @@ with st.sidebar:
     st.write("3. Ratu Enjelita")
     st.image("ratu2.jpg", caption="Ratu Enjelita", use_container_width=True)
 
+# Menampilkan logo universitas dengan ukuran yang lebih kecil
+logo = Image.open("President_University_Logo.png")
+logo = logo.resize((150, 150))  # Mengubah ukuran logo menjadi 150x150 piksel
+st.image(logo, use_container_width=False)  # Gambar logo yang sudah diperkecil
+
 # Judul halaman
-st.image("President_University_Logo.png",width=50,hight=50, use_container_width=True)
 st.title("Image Rotation and Download Application")
 
 # Upload gambar
