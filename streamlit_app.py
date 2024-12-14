@@ -7,7 +7,7 @@ st.set_page_config(page_title="Rotate and Download Image", layout="centered")
 
 # Sidebar untuk menampilkan nama anggota
 with st.sidebar:
-    st.image("Presiden_University_Logo.png")
+    st.image("Presiden_University_Logo.png",width=150)
     st.title("Group Members")
     st.write("1. Chyntia Adinda Ramadani")
     st.write("2. Salsabilla Clarysa Putri")
