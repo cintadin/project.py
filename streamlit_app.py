@@ -51,7 +51,7 @@ st.markdown(
     """, unsafe_allow_html=True)
 
 # Menampilkan logo di atas halaman
-st.markdown(f'<img class="logo" src="file:///{logo_image_path}" alt="Logo">', unsafe_allow_html=True)
+st.markdown(f'<img class="logo" src="file:///{r"C:\Users\Lenovo\belajar\LINEAR ALGEBRA\project final exam\President_University_Logo.png"}" alt="Logo">', unsafe_allow_html=True)
 
 # Navigasi sidebar
 with st.sidebar:
