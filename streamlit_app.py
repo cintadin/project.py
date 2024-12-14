@@ -1,102 +1,48 @@
 import streamlit as st
+from streamlit_option_menu import option_menu  # type: ignore
 from PIL import Image
-import io
-from streamlit_option_menu import option_menu  # Import untuk option menu
 
 # Konfigurasi halaman
-st.set_page_config(page_title="Rotate and Download Image", layout="centered")
+st.set_page_config(page_title="Project Final Exam", layout="centered")
 
-# Sidebar untuk menampilkan option menu dan nama anggota
+# Navigasi sidebar
 with st.sidebar:
     select = option_menu(
-        "Main Menu",  # Nama menu utama
-        ["Rotate Image", "Group Info"],  # Opsi menu yang bisa dipilih
-        default_index=0,  # Pilihan default
-        menu_icon="cast",  # Ikon menu
-        orientation="vertical",  # Orientasi menu
+        "Project Final Exam", 
+        ["Introduction", "Application"], 
+        default_index=0
     )
 
-# Menampilkan konten berdasarkan pilihan menu
-if select == "Rotate Image":
-    # Menampilkan logo universitas dengan ukuran yang lebih kecil
-    logo = Image.open("President_University_Logo.png")
-    logo = logo.resize((150, 150))  # Mengubah ukuran logo menjadi 150x150 piksel
-    st.image(logo, use_container_width=False)  # Gambar logo yang sudah diperkecil
+# Menu "Introduction"
+if select == "Introduction":
+    # Header
+    st.markdown("<div class='container'>", unsafe_allow_html=True)
+    st.markdown("<p class='title'>INTRODUCTION</p>", unsafe_allow_html=True)
 
-    # Judul halaman
-    st.title("Image Rotation and Download Application")
+    # Informasi anggota
+    st.markdown("<p class='subheader'>Group Members</p>", unsafe_allow_html=True)
+    st.markdown("<p class='content'>1. Chyntia Adinda Ramadani</p>", unsafe_allow_html=True)
+    st.markdown("<p class='content'>2. Salsabilla Clarysa Putri</p>", unsafe_allow_html=True)
+    st.markdown("<p class='content'>3. Ratu Enjelita</p>", unsafe_allow_html=True)
 
-    # Upload gambar
-    uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
+    # Program studi dan fakultas
+    st.markdown("<p class='subheader'>Program Study</p>", unsafe_allow_html=True)
+    st.markdown("<p class='content'>Industrial Engineering</p>", unsafe_allow_html=True)
+    st.markdown("<p class='subheader'>Faculty</p>", unsafe_allow_html=True)
+    st.markdown("<p class='content'>Engineering</p>", unsafe_allow_html=True)
 
-    # Gambar default jika tidak ada gambar yang diupload
-    if uploaded_file is None:
-        default_image = Image.new("RGB", (500, 500), color=(255, 0, 0))  # Gambar default berwarna merah
-        st.image(default_image, caption="Default Image", use_container_width=True)
-        image = default_image
-    else:
-        # Membuka gambar yang diupload
-        image = Image.open(uploaded_file)
+    # Foto anggota
+    st.markdown("<p class='subheader'>Member Photo</p>", unsafe_allow_html=True)
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.image("cinta2.jpg", caption="Chyntia Adinda", use_container_width=True)
+    with col2:
+        st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True)
+    with col3:
+        st.image("ratu2.jpg", caption="Ratu Enjelita", use_container_width=True)
 
-        # Menampilkan gambar yang diupload
-        st.image(image, caption="Uploaded Image", use_container_width=True)
-
-    # Input sudut rotasi
-    angle = st.slider("Select rotation angle", min_value=0, max_value=360, value=90, step=1)
-
-    # Melakukan rotasi
-    rotated_image = image.rotate(angle)
-
-    # Menampilkan gambar yang telah diputar
-    st.image(rotated_image, caption=f"Rotated Image by {angle}°", use_container_width=True)
-
-    # Menyimpan gambar rotasi sementara dalam format yang bisa didownload
-    def image_to_bytes(img, format='PNG'):
-        img_byte_arr = io.BytesIO()
-        img.save(img_byte_arr, format=format)
-        img_byte_arr.seek(0)
-        return img_byte_arr
-
-    # Fitur untuk mendownload gambar hasil rotasi
-    st.subheader("Download Rotated Image")
-
-    # Pilihan format file untuk download
-    download_format = st.selectbox("Choose download format", ["PNG", "JPEG", "PDF"])
-
-    if download_format == "PNG":
-        img_bytes = image_to_bytes(rotated_image, format="PNG")
-        st.download_button(
-            label="Download as PNG",
-            data=img_bytes,
-            file_name="rotated_image.png",
-            mime="image/png"
-        )
-    elif download_format == "JPEG":
-        img_bytes = image_to_bytes(rotated_image, format="JPEG")
-        st.download_button(
-            label="Download as JPEG",
-            data=img_bytes,
-            file_name="rotated_image.jpg",
-            mime="image/jpeg"
-        )
-    elif download_format == "PDF":
-        # Convert image to PDF
-        pdf_bytes = io.BytesIO()
-        rotated_image.convert("RGB").save(pdf_bytes, format="PDF")
-        pdf_bytes.seek(0)
-        st.download_button(
-            label="Download as PDF",
-            data=pdf_bytes,
-            file_name="rotated_image.pdf",
-            mime="application/pdf"
-        )
-
-elif select == "Group Info":
-    # Menampilkan informasi anggota kelompok
-    st.title("Group Members")
-    st.write("1. Chyntia Adinda Ramadani")
-    st.image("cinta2.jpg", caption="Chyntia Adinda Ramadani", use_container_width=True)
-    st.write("2. Salsabilla Clarysa Putri")
-    st.image("salsa2.jpg", caption="Salsabilla Clarysa Putri", use_container_width=True)
-    st.write("3. Ratu Enjelita")
-    st.image("ratu2.jpg", caption="Ratu Enjelita", use_container_width=True)
+# Menu "Application"
+elif select == "Application":
+    # Deskripsi aplikasi
+    st.markdown("<p class='title'>APPLICATION DESCRIPTION</p>", unsafe_allow_html=True)
+    st.markdown("<p class='content'>This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, and transparency. Users can choose the type of transformation and adjust parameters as desired, as well as see the results of image changes directly, making it easier to edit images as needed.</p>", unsafe_allow_html=True)
