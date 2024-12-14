@@ -2,7 +2,6 @@ import streamlit as st
 from streamlit_option_menu import option_menu  # type: ignore
 from PIL import Image, ImageEnhance
 import numpy as np
-import cv2
 import io
 
 # Konfigurasi halaman
