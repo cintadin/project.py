@@ -21,13 +21,17 @@ st.markdown(
         background-repeat: no-repeat;
         height: 100vh;
         margin: 0;
-        text-align: center;  /* Menambahkan agar semua teks terpusat */
+    }}
+    .logo-container {{
+        text-align: center;  /* Pusatkan logo */
+        margin-top: 20px;    /* Beri jarak atas untuk logo */
+        margin-bottom: 20px; /* Beri jarak bawah untuk logo */
     }}
     .container {{
         background-color: rgba(255, 255, 255, 0.8);
         padding: 20px;
         border-radius: 10px;
-        text-align: center;  /* Menambahkan agar teks di dalam container terpusat */
+        text-align: center;
     }}
     .title {{
         font-size: 36px;
@@ -35,7 +39,7 @@ st.markdown(
         color: #333333;
     }}
     .subheader {{
-        font-size: 32px;  /* Memperbesar ukuran font subheader */
+        font-size: 32px;
         font-weight: bold;
         color: #4CAF50;
     }}
@@ -47,7 +51,9 @@ st.markdown(
     """, unsafe_allow_html=True)
 
 # Menampilkan logo di atas halaman menggunakan st.image()
-st.image(logo_image_path, width=150, caption="Project Logo")
+st.markdown("<div class='logo-container'>", unsafe_allow_html=True)
+st.image(logo_image_path, width=300)  # Perbesar ukuran logo
+st.markdown("</div>", unsafe_allow_html=True)
 
 # Navigasi sidebar
 with st.sidebar:
