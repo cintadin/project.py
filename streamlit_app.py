@@ -3,7 +3,6 @@ from streamlit_option_menu import option_menu  # type: ignore
 from PIL import Image, ImageEnhance
 import numpy as np
 import cv2
-import base64
 
 # Konfigurasi halaman
 st.set_page_config(page_title="Kelompok Project", layout="centered")
@@ -17,19 +16,9 @@ with st.sidebar:
     )
 
 if select == 'Introduction':
-    # Header dan logo
+    # Header
     st.markdown("<div class='container'>", unsafe_allow_html=True)
     st.markdown("<p class='title'>INTRODUCTION</p>", unsafe_allow_html=True)
-
-    # Encode logo image to base64 and display
-    logo_path = "President_University_Logo.png"  # Gambar logo yang benar
-    try:
-        with open(logo_path, "rb") as img_file:
-            logo_base64 = base64.b64encode(img_file.read()).decode()
-
-        st.markdown(f"<img src='data:image/png;base64,{logo_base64}' class='logo'>", unsafe_allow_html=True)
-    except FileNotFoundError:
-        st.error("Logo file not found!")
 
     # Informasi kelompok
     st.markdown("<p class='subheader'>Group 3 IEN 1 2024</p>", unsafe_allow_html=True)
@@ -37,8 +26,8 @@ if select == 'Introduction':
     st.markdown("<p class='content'>Ratu Enjelita (004202305032)</p>", unsafe_allow_html=True)
     st.markdown("<p class='content'>Salsabilla Clarysa Putri (004202305016)</p>", unsafe_allow_html=True)
     
-    # Tampilkan gambar logo universitas
-    st.image("President_University_Logo.png", use_container_width=True)
+    # Tampilkan gambar logo universitas di bawah "Introduction"
+    st.image("President_University_Logo.png", use_container_width=True)  # Menampilkan logo langsung
 
     st.markdown("<p class='subheader'>Program Study</p>", unsafe_allow_html=True)
     st.markdown("<p class='content'>Industrial Engineering</p>", unsafe_allow_html=True)
