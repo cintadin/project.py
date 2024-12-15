@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-import base64
+import base64  # Perlu impor base64
+from PIL import Image
 
 # Fungsi untuk mengubah file gambar lokal menjadi Base64
 def set_background_image(image_path):
