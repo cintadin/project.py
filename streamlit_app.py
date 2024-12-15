@@ -2,8 +2,6 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 from PIL import Image
 import base64
-from rembg import remove  # To handle the remove background operation
-import io
 
 # Fungsi untuk mengubah file gambar lokal menjadi Base64
 def set_background_image(image_path):
@@ -72,8 +70,8 @@ with st.sidebar:
 if select == "Introduction":
     # Header
     st.markdown(custom_heading("INTRODUCTION", 1), unsafe_allow_html=True)
-    st.markdown(center_content("We from Group 3 Industrial Engineering 1, introduce an image transformation application based on Streamlit.",2), unsafe_allow_html=True)
-    st.markdown(center_content("We developed this application as part of our final project, which presents various features such as rotation, translation, scale, and others. With a simple yet innovative design, this application is real evidence of the application of image processing technology in real life.",2), unsafe_allow_html=True)
+    st.markdown(custom_heading("We from Group 3 Industrial Engineering 1, introduce an image transformation application based on Streamlit.", 3), unsafe_allow_html=True)
+    st.markdown(custom_heading("We developed this application as part of our final project, which presents various features such as rotation, translation, scale, and others. With a simple yet innovative design, this application is real evidence of the application of image processing technology in real life.", 3), unsafe_allow_html=True)
 
     # Informasi anggota
     st.markdown(custom_heading("Group Members", 2), unsafe_allow_html=True)
@@ -129,10 +127,3 @@ elif select == "Application":
                 (1, 0, tx, 0, 1, ty)
             )
             st.image(translated_image, caption="Translated Image", use_container_width=True)
-
-        elif transformation == "Remove Background":
-            # Menghapus latar belakang menggunakan rembg
-            if image.mode != 'RGBA':
-                image = image.convert("RGBA")
-            output_image = remove(image)
-            st.image(output_image, caption="Image without Background", use_container_width=True)
