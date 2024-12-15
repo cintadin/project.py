@@ -178,4 +178,4 @@ elif select == "Application":
         download_format = st.selectbox("Select download format", ["PNG", "JPG", "PDF"])
 
         # Menyediakan link unduhan untuk gambar
-        st.markdown(download_image(image, download_format), unsafe_allow_html=True)
+        st.markdown(download_format(image, download_format), unsafe_allow_html=True)
