@@ -71,27 +71,25 @@ if select == "Introduction":
     # Header
     st.markdown(custom_heading("INTRODUCTION", 1), unsafe_allow_html=True)
 
-    # Teks tanpa hyperlink
-    st.markdown(
-        """
-        We from Group 3 Industrial Engineering 1, introduce an image transformation application based on Streamlit.
-        We developed this application as part of our final project, which presents various features such as rotation,
-        translation, scale, and others. With a simple yet innovative design, this application is real evidence of the
-        application of image processing technology in real life.
-        """, unsafe_allow_html=True
+    # Teks biasa (tanpa hyperlink)
+    st.text(
+        "We from Group 3 Industrial Engineering 1, introduce an image transformation application based on Streamlit. "
+        "We developed this application as part of our final project, which presents various features such as rotation, "
+        "translation, scale, and others. With a simple yet innovative design, this application is real evidence of the "
+        "application of image processing technology in real life."
     )
 
     # Informasi anggota
     st.markdown(custom_heading("Group Members", 2), unsafe_allow_html=True)
-    st.markdown(center_content("Chyntia Adinda Ramadani (004202305053)"), unsafe_allow_html=True)
-    st.markdown(center_content("Ratu Enjelita (004202305032)"), unsafe_allow_html=True)
-    st.markdown(center_content("Salsabilla Clarysa Putri (004202305016)"), unsafe_allow_html=True)
+    st.text("Chyntia Adinda Ramadani (004202305053)")
+    st.text("Ratu Enjelita (004202305032)")
+    st.text("Salsabilla Clarysa Putri (004202305016)")
 
     # Program studi dan fakultas
     st.markdown(custom_heading("Program Study", 2), unsafe_allow_html=True)
-    st.markdown(center_content("Industrial Engineering"), unsafe_allow_html=True)
+    st.text("Industrial Engineering")
     st.markdown(custom_heading("Faculty", 2), unsafe_allow_html=True)
-    st.markdown(center_content("Engineering"), unsafe_allow_html=True)
+    st.text("Engineering")
 
     # Foto anggota
     st.markdown(custom_heading("Member Photo", 2), unsafe_allow_html=True)
@@ -102,7 +100,7 @@ if select == "Introduction":
         st.image("ratu2.jpg", caption="Ratu Enjelita", use_container_width=True)
     with col3:
         st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True)
-    
+
 # Menu "Application"
 elif select == "Application":
     st.markdown(custom_heading("APPLICATION DESCRIPTION", 1), unsafe_allow_html=True)
