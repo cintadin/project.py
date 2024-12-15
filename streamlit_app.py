@@ -28,7 +28,7 @@ def set_background_image(image_path):
         st.error("File background tidak ditemukan. Periksa path gambar Anda.")
 
 # Konfigurasi halaman
-st.set_page_config(page_title="Project Final Exam", layout="centered")
+st.set_page_config(page_title="Project Final Exam Group 03", layout="centered")
 
 # Atur path file lokal untuk gambar latar belakang dan logo
 background_image_path = "Presiden t1.jpg"  # Pastikan path-nya benar
@@ -61,7 +61,7 @@ def custom_heading(text, level):
 # Navigasi sidebar
 with st.sidebar:
     select = option_menu(
-        "Project Final Exam", 
+        "Project Final Exam Group 03", 
         ["Introduction", "Application"], 
         default_index=0
     )
@@ -70,6 +70,8 @@ with st.sidebar:
 if select == "Introduction":
     # Header
     st.markdown(custom_heading("INTRODUCTION", 1), unsafe_allow_html=True)
+    st.markdown(custom_heading("We from Group 3 Industrial Engineering 1, introduce an image transformation application based on Streamlit. 
+    We developed this application as part of our final project, which presents various features such as rotation, translation, scale, and others. With a simple yet innovative design, this application is real evidence of the application of image processing technology in real life.", 2), unsafe_allow_html=True)
 
     # Informasi anggota
     st.markdown(custom_heading("Group Members", 2), unsafe_allow_html=True)
