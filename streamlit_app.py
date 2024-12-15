@@ -52,11 +52,11 @@ def center_content(content):
 # Fungsi untuk menampilkan heading dengan CSS
 def custom_heading(text, level):
     if level == 1:
-        return f"<h1 style='text-align: center; font-size: 45px; font-family: Arial, sans-serif;'>{text}</h1>"
+        return f"<h1 style='text-align: center; font-size: 36px; font-family: Arial, sans-serif;'>{text}</h1>"
     elif level == 2:
-        return f"<h2 style='text-align: center; font-size: 35px; font-family: Arial, sans-serif;'>{text}</h2>"
+        return f"<h2 style='text-align: center; font-size: 30px; font-family: Arial, sans-serif;'>{text}</h2>"
     elif level == 3:
-        return f"<h3 style='text-align: center; font-size: 50px; font-family: Arial, sans-serif;'>{text}</h3>"
+        return f"<h3 style='text-align: center; font-size: 24px; font-family: Arial, sans-serif;'>{text}</h3}"
 
 # Navigasi sidebar
 with st.sidebar:
@@ -100,7 +100,19 @@ if select == "Introduction":
         st.image("ratu2.jpg", caption="Ratu Enjelita", use_container_width=True)
     with col3:
         st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True)
-    
+
+    # Menambahkan CSS untuk menyembunyikan link atau ikon hyperlink
+    st.markdown(
+        """
+        <style>
+            a { 
+                pointer-events: none; 
+                text-decoration: none; 
+                color: inherit;
+            }
+        </style>
+        """, unsafe_allow_html=True)
+
 # Menu "Application"
 elif select == "Application":
     st.markdown(custom_heading("APPLICATION DESCRIPTION", 1), unsafe_allow_html=True)
