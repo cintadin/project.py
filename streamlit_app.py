@@ -30,7 +30,7 @@ def set_background_image(image_path):
         st.error("File background tidak ditemukan. Periksa path gambar Anda.")
 
 # Konfigurasi halaman
-st.set_page_config(page_title="Project Final Exam", layout="centered")
+st.set_page_config(page_title="Project of CRS", layout="centered")
 
 # Atur path file lokal untuk gambar latar belakang dan logo
 background_image_path = "Presiden t1.jpg"
