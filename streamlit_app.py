@@ -46,6 +46,14 @@ def display_logo():
 
 display_logo()
 
+# Fungsi untuk memusatkan konten
+def center_content(content):
+    return f"""
+    <div style="text-align: center; max-width: 900px; margin: auto;">
+        {content}
+    </div>
+    """
+
 # Navigasi sidebar
 with st.sidebar:
     select = option_menu(
@@ -53,14 +61,6 @@ with st.sidebar:
         ["Introduction", "Application"], 
         default_index=0
     )
-
-# Membuat konten terpusat
-def center_content(content):
-    return f"""
-    <div style="text-align: center; max-width: 900px; margin: auto;">
-        {content}
-    </div>
-    """
 
 # Menu "Introduction"
 if select == "Introduction":
