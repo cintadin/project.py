@@ -1,5 +1,5 @@
 # Menu "Application"
-elif select == "Application":
+if elif select == "Application":
     st.markdown(custom_heading("APPLICATION DESCRIPTION", 1), unsafe_allow_html=True)
     
     # Menambahkan deskripsi aplikasi
