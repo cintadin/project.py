@@ -58,7 +58,7 @@ def custom_heading(text, level):
     elif level == 2:
         return f"<h2 style='text-align: left; font-size: 30px; font-family: Arial, sans-serif;'>{text}</h2>"  # Rata kiri untuk h2
     elif level == 3:
-        return f"<h3 style='text-align: center; font-size: 24px; font-family: Arial, sans-serif;'>{text}</h3>"
+        return f"<h3 style='text-align: center; font-size: 30px; font-family: Arial, sans-serif;'>{text}</h3>"
 
 # Navigasi sidebar
 with st.sidebar:
@@ -87,9 +87,9 @@ if select == "Introduction":
 
     # Informasi anggota
     st.markdown(custom_heading("Group Members", 2), unsafe_allow_html=True)
-    st.text("Chyntia Adinda Ramadani (004202305053)")
-    st.text("Ratu Enjelita (004202305032)")
-    st.text("Salsabilla Clarysa Putri (004202305016)")
+    st.text("1. Chyntia Adinda Ramadani (004202305053)")
+    st.text("2. Ratu Enjelita (004202305032)")
+    st.text("3. Salsabilla Clarysa Putri (004202305016)")
 
     # Program studi dan fakultas
     st.markdown(custom_heading("Program Study", 2), unsafe_allow_html=True)
@@ -122,7 +122,7 @@ elif select == "Application":
         st.image(image, caption="Uploaded Image", use_container_width=True)
 
         # Transformasi gambar
-        transformation = st.selectbox("Select Transformation", ["Select", "Rotate", "Skew", "Zoom", "Scale", "Resize", "Brightness", "Transparency", "Shear", "Translate"])
+        transformation = st.selectbox("Select Transformation", ["Select", "Rotate", "Skew", "Zoom", "Scale", "Resize", "Brightness", "Transparency", "Shear", "Translate", "Adjust RGB"])
 
         transformed_image = image
         if transformation == "Rotate":
@@ -175,6 +175,18 @@ elif select == "Application":
             img_array = np.array(image)
             rows, cols = img_array.shape[:2]
             transformed_image = image.transform((cols, rows), Image.AFFINE, (1, 0, tx, 0, 1, ty))
+
+        elif transformation == "Adjust RGB":
+            # Adjust Red, Green, and Blue channels
+            r_factor = st.slider("Adjust Red", min_value=0.0, max_value=2.0, value=1.0, step=0.1)
+            g_factor = st.slider("Adjust Green", min_value=0.0, max_value=2.0, value=1.0, step=0.1)
+            b_factor = st.slider("Adjust Blue", min_value=0.0, max_value=2.0, value=1.0, step=0.1)
+
+            img_array = np.array(image)
+            img_array[..., 0] = np.clip(img_array[..., 0] * r_factor, 0, 255)  # Red channel
+            img_array[..., 1] = np.clip(img_array[..., 1] * g_factor, 0, 255)  # Green channel
+            img_array[..., 2] = np.clip(img_array[..., 2] * b_factor, 0, 255)  # Blue channel
+            transformed_image = Image.fromarray(img_array)
 
         st.image(transformed_image, caption="Transformed Image", use_container_width=True)
 
