@@ -126,43 +126,35 @@ elif select == "Application":
 
         if transformation == "Rotate":
             angle = st.number_input("Enter Rotation Angle (degrees)", min_value=0, max_value=360, value=90, step=1)
-            rotated_image = image.rotate(angle)
-            st.image(rotated_image, caption="Rotated Image", use_container_width=True)
+            transformed_image = image.rotate(angle)
 
         elif transformation == "Skew":
             skew_factor = st.number_input("Enter Skew Factor", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
             img_array = np.array(image)
             rows, cols = img_array.shape[:2]
-            M = np.float32([[1, skew_factor, 0], [0, 1, 0]])
-            skewed_image = np.array(image.transform((cols, rows), Image.AFFINE, (1, skew_factor, 0, 0, 1, 0)))
-            st.image(skewed_image, caption="Skewed Image", use_container_width=True)
+            transformed_image = image.transform((cols, rows), Image.AFFINE, (1, skew_factor, 0, 0, 1, 0))
 
         elif transformation == "Zoom":
             zoom_factor = st.number_input("Enter Zoom Factor", min_value=1.0, max_value=10.0, value=1.5, step=0.1)
-            img_array = np.array(image)
-            height, width = img_array.shape[:2]
-            new_height = int(height * zoom_factor)
+            width, height = image.size
             new_width = int(width * zoom_factor)
-            zoomed_image = image.resize((new_width, new_height))
-            st.image(zoomed_image, caption="Zoomed Image", use_container_width=True)
+            new_height = int(height * zoom_factor)
+            transformed_image = image.resize((new_width, new_height))
 
         elif transformation == "Scale":
             scale_factor = st.number_input("Enter Scale Factor", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
             width, height = image.size
-            scaled_image = image.resize((int(width * scale_factor), int(height * scale_factor)))
-            st.image(scaled_image, caption="Scaled Image", use_container_width=True)
+            transformed_image = image.resize((int(width * scale_factor), int(height * scale_factor)))
 
         elif transformation == "Resize":
             new_width = st.number_input("Enter New Width", min_value=100, max_value=2000, value=image.width, step=10)
             new_height = st.number_input("Enter New Height", min_value=100, max_value=2000, value=image.height, step=10)
-            resized_image = image.resize((new_width, new_height))
-            st.image(resized_image, caption="Resized Image", use_container_width=True)
+            transformed_image = image.resize((new_width, new_height))
 
         elif transformation == "Brightness":
             brightness = st.slider("Adjust Brightness", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
             enhancer = ImageEnhance.Brightness(image)
-            bright_image = enhancer.enhance(brightness)
-            st.image(bright_image, caption="Brightness Adjusted Image", use_container_width=True)
+            transformed_image = enhancer.enhance(brightness)
 
         elif transformation == "Transparency":
             transparency = st.slider("Adjust Transparency", min_value=0.0, max_value=1.0, value=1.0, step=0.1)
@@ -170,30 +162,28 @@ elif select == "Application":
                 image = image.convert('RGBA')
             data = np.array(image)
             data[..., 3] = (data[..., 3] * transparency).astype(np.uint8)
-            transparent_image = Image.fromarray(data, 'RGBA')
-            st.image(transparent_image, caption="Transparency Adjusted Image", use_container_width=True)
+            transformed_image = Image.fromarray(data, 'RGBA')
 
         elif transformation == "Shear":
             shear_factor = st.slider("Adjust Shear Factor", min_value=-10.0, max_value=10.0, value=0.0, step=0.1)
             img_array = np.array(image)
             rows, cols = img_array.shape[:2]
-            M = np.float32([ [1, shear_factor, 0], [0, 1, 0] ])
-            sheared_image = image.transform((cols, rows), Image.AFFINE, (1, shear_factor, 0, 0, 1, 0))
-            st.image(sheared_image, caption="Sheared Image", use_container_width=True)
+            transformed_image = image.transform((cols, rows), Image.AFFINE, (1, shear_factor, 0, 0, 1, 0))
 
         elif transformation == "Translate":
             tx = st.slider("Translate X", min_value=-200, max_value=200, value=0, step=1)
             ty = st.slider("Translate Y", min_value=-200, max_value=200, value=0, step=1)
             img_array = np.array(image)
             rows, cols = img_array.shape[:2]
-            M = np.float32([ [1, 0, tx], [0, 1, ty] ])
-            translated_image = image.transform((cols, rows), Image.AFFINE, (1, 0, tx, 0, 1, ty))
-            st.image(translated_image, caption="Translated Image", use_container_width=True)
+            transformed_image = image.transform((cols, rows), Image.AFFINE, (1, 0, tx, 0, 1, ty))
+
+        else:
+            transformed_image = image
 
         # Pilih format file untuk unduhan
         download_format = st.selectbox("Select download format", ["PNG", "JPG", "PDF"])
 
-        # Fungsi untuk mengonversi dan mendownload gambar
+        # Fungsi untuk mengonversi gambar
         def convert_image_for_download(image, format):
             img_io = io.BytesIO()
             if format == "PNG":
@@ -205,7 +195,7 @@ elif select == "Application":
             img_io.seek(0)
             return img_io
 
-         # Unduh gambar
+        # Unduh langsung
         img_io = convert_image_for_download(transformed_image, download_format)
         st.download_button(
             label=f"Download as {download_format}",
@@ -213,4 +203,3 @@ elif select == "Application":
             file_name=f"transformed_image.{download_format.lower()}",
             mime=f"image/{download_format.lower()}"
         )
-
