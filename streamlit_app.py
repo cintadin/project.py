@@ -63,7 +63,7 @@ def custom_heading(text, level):
 # Navigasi sidebar
 with st.sidebar:
     select = option_menu(
-        "Project Final Exam",
+        "Project of CRS",
         ["Introduction", "Application"],
         default_index=0
     )
