@@ -2,7 +2,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 from PIL import Image
 import base64
-from rembg import remove  
+import numpy as np
 
 # Fungsi untuk mengubah file gambar lokal menjadi Base64
 def set_background_image(image_path):
@@ -13,7 +13,7 @@ def set_background_image(image_path):
             f"""
             <style>
             [data-testid="stAppViewContainer"] {{
-                background-image: url("data:image/png;base64,{encoded}");
+                background-image: url("data:image/png;base64,{encoded}"); 
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -120,7 +120,20 @@ elif select == "Application":
             st.image(translated_image, caption="Translated Image", use_container_width=True)
 
         elif transformation == "Remove Background":
-            if image.mode != 'RGBA':
-                image = image.convert("RGBA")
-            output_image = remove(image)
-            st.image(output_image, caption="Image without Background", use_container_width=True)
+            # Convert the image to RGBA (if it is not already)
+            image = image.convert("RGBA")
+            data = np.array(image)
+
+            # Define the background color (in this case, white)
+            background_color = (255, 255, 255, 255)  # White background
+            width, height = image.size
+
+            # Loop over each pixel to make the background transparent
+            for x in range(width):
+                for y in range(height):
+                    if np.array_equal(data[y, x], background_color):
+                        data[y, x] = (255, 255, 255, 0)  # Change the white background to transparent
+
+            # Convert the numpy array back to an image
+            result_image = Image.fromarray(data)
+            st.image(result_image, caption="Image without Background", use_container_width=True)
