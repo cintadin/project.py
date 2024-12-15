@@ -3,7 +3,6 @@ from streamlit_option_menu import option_menu
 import base64
 from PIL import Image, ImageEnhance
 import numpy as np
-import cv2
 import io
 
 # Fungsi untuk mengubah file gambar lokal menjadi Base64
@@ -115,7 +114,7 @@ elif select == "Application":
         "This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, and transparency."
     )
 
-# Upload Image
+    # Upload Image
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
 
     if uploaded_file is not None:
@@ -135,7 +134,7 @@ elif select == "Application":
             img_array = np.array(image)
             rows, cols = img_array.shape[:2]
             M = np.float32([[1, skew_factor, 0], [0, 1, 0]])
-            skewed_image = cv2.warpAffine(img_array, M, (cols, rows))
+            skewed_image = np.array(image.transform((cols, rows), Image.AFFINE, (1, skew_factor, 0, 0, 1, 0)))
             st.image(skewed_image, caption="Skewed Image", use_container_width=True)
 
         elif transformation == "Zoom":
@@ -144,7 +143,7 @@ elif select == "Application":
             height, width = img_array.shape[:2]
             new_height = int(height * zoom_factor)
             new_width = int(width * zoom_factor)
-            zoomed_image = cv2.resize(img_array, (new_width, new_height), interpolation=cv2.INTER_LINEAR)
+            zoomed_image = image.resize((new_width, new_height))
             st.image(zoomed_image, caption="Zoomed Image", use_container_width=True)
 
         elif transformation == "Scale":
@@ -177,5 +176,23 @@ elif select == "Application":
         # Pilih format file untuk unduhan
         download_format = st.selectbox("Select download format", ["PNG", "JPG", "PDF"])
 
-        # Menyediakan link unduhan untuk gambar
-        st.markdown(download_format(image, download_format), unsafe_allow_html=True)
+        # Fungsi untuk mengonversi dan mendownload gambar
+        def convert_image_for_download(image, format):
+            img_io = io.BytesIO()
+            if format == "PNG":
+                image.save(img_io, "PNG")
+            elif format == "JPG":
+                image.save(img_io, "JPEG")
+            elif format == "PDF":
+                image.save(img_io, "PDF")
+            img_io.seek(0)
+            return img_io
+
+        if st.button("Download Image"):
+            img_io = convert_image_for_download(image, download_format)
+            st.download_button(
+                label=f"Download as {download_format}",
+                data=img_io,
+                file_name=f"transformed_image.{download_format.lower()}",
+                mime=f"image/{download_format.lower()}"
+            )
