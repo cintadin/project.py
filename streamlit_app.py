@@ -57,7 +57,7 @@ with st.sidebar:
 # Menu "Introduction"
 if select == "Introduction":
     # Header
-    st.markdown("<h2 style='text-align: center;'>INTRODUCTION</h2>", unsafe_allow_html=True)
+    st.markdown("<div style='text-align: center;'><h2>INTRODUCTION</h2></div>", unsafe_allow_html=True)
 
     # Informasi anggota
     st.markdown("<h3 style='text-align: center;'>Group Members</h3>", unsafe_allow_html=True)
@@ -83,7 +83,7 @@ if select == "Introduction":
 
 # Menu "Application"
 elif select == "Application":
-    st.markdown("<h2 style='text-align: center;'>APPLICATION DESCRIPTION</h2>", unsafe_allow_html=True)
+    st.markdown("<div style='text-align: center;'><h2>APPLICATION DESCRIPTION</h2></div>", unsafe_allow_html=True)
     st.write(
         "This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, and transparency."
     )
