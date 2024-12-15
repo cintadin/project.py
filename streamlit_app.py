@@ -97,4 +97,17 @@ if select == "Introduction":
 
     # Foto anggota
     st.markdown(custom_heading("Member Photo", 2), unsafe_allow_html=True)
-    col1
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.image("cinta2.jpg", caption="Chyntia Adinda", use_container_width=True)
+    with col2:
+        st.image("ratu2.jpg", caption="Ratu Enjelita", use_container_width=True)
+    with col3:
+        st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True)
+
+# Menu "Application"
+elif select == "Application":
+    st.markdown(custom_heading("APPLICATION DESCRIPTION", 1), unsafe_allow_html=True)
+    st.write(
+        "This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, and transparency."
+    )
