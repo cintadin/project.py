@@ -1,5 +1,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
+import base64
 
 # Fungsi untuk mengubah file gambar lokal menjadi Base64
 def set_background_image(image_path):
@@ -54,7 +55,7 @@ def custom_heading(text, level):
     elif level == 2:
         return f"<h2 style='text-align: center; font-size: 30px; font-family: Arial, sans-serif;'>{text}</h2>"
     elif level == 3:
-        return f"<h3 style='text-align: center; font-size: 24px; font-family: Arial, sans-serif;'>{text}</h3>"
+        return f"<h3 style='text-align: center; font-size: 24px; font-family: Arial, sans-serif;'>{text}</h3}"
 
 # Navigasi sidebar
 with st.sidebar:
