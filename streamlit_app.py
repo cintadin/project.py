@@ -99,29 +99,3 @@ elif select == "Application":
     st.write(
         "This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, and transparency."
     )
-
-    uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
-
-    if uploaded_file is not None:
-        image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Image", use_container_width=True)
-
-        transformation = st.selectbox(
-            "Select Transformation", 
-            ["Select", "Rotate", "Translate", "Scale", "Shear", "Resize", "Skew", "Brightness", "Transparency", "Remove Background"]
-        )
-
-        if transformation == "Rotate":
-            angle = st.slider("Enter Rotation Angle (degrees)", min_value=0, max_value=360, value=90, step=1)
-            rotated_image = image.rotate(angle)
-            st.image(rotated_image, caption=f"Rotated Image by {angle}°", use_container_width=True)
-
-        elif transformation == "Translate":
-            tx = st.slider("Translate X (pixels)", min_value=-500, max_value=500, value=0, step=1)
-            ty = st.slider("Translate Y (pixels)", min_value=-500, max_value=500, value=0, step=1)
-            translated_image = image.transform(
-                image.size, 
-                Image.AFFINE, 
-                (1, 0, tx, 0, 1, ty)
-            )
-            st.image(translated_image, caption="Translated Image", use_container_width=True)
