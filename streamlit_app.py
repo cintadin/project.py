@@ -111,3 +111,30 @@ elif select == "Application":
     st.write(
         "This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, and transparency."
     )
+
+# Upload Image
+    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "png"])
+    
+    if uploaded_file is not None:
+        # Open the image
+        image = Image.open(uploaded_file)
+        
+        # Input manual atau slider untuk transformasi
+        rotation = st.slider("Rotation Angle (degrees)", -180, 180, 0)
+        translation_x = st.slider("Translation X (pixels)", -200, 200, 0)
+        translation_y = st.slider("Translation Y (pixels)", -200, 200, 0)
+        scale_factor = st.slider("Scaling Factor", 0.1, 3.0, 1.0)
+        shear_factor = st.slider("Shear Factor", -0.5, 0.5, 0.0)
+        skew_factor = st.slider("Skew Factor", -0.5, 0.5, 0.0)
+        
+        # Transformasi gambar
+        transformed_image = transform_image(image, rotation, translation_x, translation_y, scale_factor, shear_factor, skew_factor)
+        
+        # Tampilkan gambar yang sudah ditransformasi
+        st.image(transformed_image, caption="Transformed Image", use_container_width=True)
+
+        # Pilih format file untuk unduhan
+        download_format = st.selectbox("Select download format", ["PNG", "JPG", "PDF"])
+        
+        # Menyediakan link unduhan untuk gambar
+        st.markdown(download_image(transformed_image, download_format), unsafe_allow_html=True)
