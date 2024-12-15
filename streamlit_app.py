@@ -7,7 +7,7 @@ import numpy as np
 st.set_page_config(page_title="Project Final Exam", layout="centered")
 
 # Atur path file lokal untuk gambar latar belakang dan logo
-background_image_path = r"C:\Users\Lenovo\OneDrive\Gambar\Presiden t1.jpg"  # Pastikan path-nya benar
+background_image_path = "C:/Users/Lenovo/OneDrive/Gambar/Presiden t1.jpg"  # Pastikan path-nya benar
 logo_image_path = "Logo PU-HD-2.jpg"  # Ganti dengan path logo yang sesuai
 
 # Gunakan CSS untuk styling dan latar belakang
@@ -30,11 +30,14 @@ st.markdown(
     .container {{
         text-align: center;
         margin-top: 20px;
+        margin-bottom: 20px; /* Tambahkan margin bawah */
     }}
     img {{
         display: block;
-        margin: 0 auto; /* Pusatkan gambar */
-        width: 300px; /* Ukuran logo */
+        margin: 50px auto; /* Pusatkan gambar dan tambahkan margin atas/bawah */
+        width: 500px; /* Besarkan ukuran logo */
+        max-width: 80%; /* Agar logo tetap responsif pada layar kecil */
+        height: auto; /* Memastikan aspek rasio tetap terjaga */
     }}
     h2, h3 {{
         color: #333333;
@@ -43,9 +46,9 @@ st.markdown(
     </style>
     """, unsafe_allow_html=True)
 
-# Menampilkan logo di tengah halaman
+# Menampilkan logo di tengah halaman dengan ukuran yang lebih besar
 st.markdown("<div class='container'>", unsafe_allow_html=True)
-st.image(logo_image_path, width=300)  # Logo di tengah
+st.image(logo_image_path, width=500)  # Besarkan ukuran logo
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Navigasi sidebar
