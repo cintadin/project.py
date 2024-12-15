@@ -42,7 +42,7 @@ set_background_image(background_image_path)
 # Menampilkan logo di tengah halaman dan memperbesar ukuran logo
 def display_logo():
     st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-    st.image(logo_image_path, width=700)
+    st.image(logo_image_path, width=1000)
     st.markdown("</div>", unsafe_allow_html=True)
 
 display_logo()
