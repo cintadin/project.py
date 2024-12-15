@@ -2,6 +2,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 from PIL import Image
 import base64
+from rembg import remove  # Untuk menangani penghapusan background
 
 # Fungsi untuk mengubah file gambar lokal menjadi Base64
 def set_background_image(image_path):
@@ -71,9 +72,9 @@ if select == "Introduction":
     # Header
     st.markdown(custom_heading("INTRODUCTION", 1), unsafe_allow_html=True)
 
-    #Introduction
-    st.markdown(center_content("We from Group 3 Industrial Engineering 1, introduce an image transformation application based on Streamlit.",2), unsafe_allow_html=True)
-    st.markdown(center_content("We developed this application as part of our final project, which presents various features such as rotation, translation, scale, and others. With a simple yet innovative design, this application is real evidence of the application of image processing technology in real life.",2), unsafe_allow_html=True)
+    # Introduction
+    st.markdown(center_content("We from Group 3 Industrial Engineering 1, introduce an image transformation application based on Streamlit.", 2), unsafe_allow_html=True)
+    st.markdown(center_content("We developed this application as part of our final project, which presents various features such as rotation, translation, scale, and others. With a simple yet innovative design, this application is real evidence of the application of image processing technology in real life.", 2), unsafe_allow_html=True)
 
     # Informasi anggota
     st.markdown(custom_heading("Group Members", 2), unsafe_allow_html=True)
@@ -87,22 +88,10 @@ if select == "Introduction":
     st.markdown(custom_heading("Faculty", 2), unsafe_allow_html=True)
     st.markdown(center_content("Engineering"), unsafe_allow_html=True)
 
-    # Foto anggota
-    st.markdown(custom_heading("Member Photo", 2), unsafe_allow_html=True)
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.image("cinta2.jpg", caption="Chyntia Adinda", use_container_width=True)
-    with col2:
-        st.image("ratu2.jpg", caption="Ratu Enjelita", use_container_width=True)
-    with col3:
-        st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True)
-
 # Menu "Application"
 elif select == "Application":
     st.markdown(custom_heading("APPLICATION DESCRIPTION", 1), unsafe_allow_html=True)
-    st.write(
-        "This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, and transparency."
-    )
+    st.write("This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, and transparency.")
 
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
 
@@ -129,3 +118,9 @@ elif select == "Application":
                 (1, 0, tx, 0, 1, ty)
             )
             st.image(translated_image, caption="Translated Image", use_container_width=True)
+
+        elif transformation == "Remove Background":
+            if image.mode != 'RGBA':
+                image = image.convert("RGBA")
+            output_image = remove(image)
+            st.image(output_image, caption="Image without Background", use_container_width=True)
