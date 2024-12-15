@@ -110,7 +110,7 @@ if select == "Introduction":
 elif select == "Application":
     st.markdown(custom_heading("APPLICATION DESCRIPTION", 1), unsafe_allow_html=True)
     st.write(
-        "This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, transparency, shear, translation, and background removal."
+        "This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, transparency, shear, and translation."
     )
 
     # Upload Image
@@ -121,7 +121,7 @@ elif select == "Application":
         st.image(image, caption="Uploaded Image", use_container_width=True)
 
         # Transformasi gambar
-        transformation = st.selectbox("Select Transformation", ["Select", "Rotate", "Skew", "Zoom", "Scale", "Resize", "Brightness", "Transparency", "Shear", "Translate", "Remove Background"])
+        transformation = st.selectbox("Select Transformation", ["Select", "Rotate", "Skew", "Zoom", "Scale", "Resize", "Brightness", "Transparency", "Shear", "Translate"])
 
         if transformation == "Rotate":
             angle = st.number_input("Enter Rotation Angle (degrees)", min_value=0, max_value=360, value=90, step=1)
@@ -175,16 +175,6 @@ elif select == "Application":
             img_array = np.array(image)
             rows, cols = img_array.shape[:2]
             transformed_image = image.transform((cols, rows), Image.AFFINE, (1, 0, tx, 0, 1, ty))
-
-        elif transformation == "Remove Background":
-            img_array = np.array(image)
-            # Background removal tanpa pustaka rembg
-            if image.mode != 'RGBA':
-                image = image.convert('RGBA')
-            img_array = np.array(image)
-            mask = np.all(img_array[:, :, :3] == [255, 255, 255], axis=-1)
-            img_array[mask] = [0, 0, 0, 0]
-            transformed_image = Image.fromarray(img_array)
 
         else:
             transformed_image = image
