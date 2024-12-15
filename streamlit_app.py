@@ -75,7 +75,7 @@ if select == "Introduction":
         "We developed this application as part of our final project, which presents various features such as rotation, "
         "translation, scale, and others. With a simple yet innovative design, this application is real evidence of the "
         "application of image processing technology in real life."
-    )
+    unsafe_allow_html=True)
 
     # Informasi anggota
     st.markdown(custom_heading("Group Members", 2), unsafe_allow_html=True)
@@ -99,13 +99,6 @@ if select == "Introduction":
     with col3:
         st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True)
     
-    # Tambahkan kalimat di bawah introduction dengan format font mengikuti h2
-    st.markdown(custom_heading(
-        "We from Group 3 Industrial Engineering 1, introduce an image transformation application based on Streamlit. "
-        "We developed this application as part of our final project, which presents various features such as rotation, "
-        "translation, scale, and others. With a simple yet innovative design, this application is real evidence of the "
-        "application of image processing technology in real life.", 2), unsafe_allow_html=True)
-
 # Menu "Application"
 elif select == "Application":
     st.markdown(custom_heading("APPLICATION DESCRIPTION", 1), unsafe_allow_html=True)
