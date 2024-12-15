@@ -25,27 +25,30 @@ st.markdown(
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        text-align: center;
+        text-align: center; /* Pusatkan teks dan elemen di tengah secara horizontal */
     }}
     .container {{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        height: 100vh; /* Pastikan elemen berada di tengah secara vertikal */
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px; /* Tambahkan margin bawah */
     }}
     img {{
-        max-width: 700px; /* Pastikan logo besar */
-        width: 40vw; /* Responsif terhadap lebar layar */
-        height: auto; /* Menjaga aspek rasio */
-        margin: auto; /* Pusatkan secara horizontal */
+        display: block;
+        margin: 50px auto; /* Pusatkan gambar dan tambahkan margin atas/bawah */
+        width: 500px; /* Besarkan ukuran logo */
+        max-width: 80%; /* Agar logo tetap responsif pada layar kecil */
+        height: auto; /* Memastikan aspek rasio tetap terjaga */
+    }}
+    h2, h3 {{
+        color: #333333;
+        text-align: center; /* Pusatkan teks */
     }}
     </style>
     """, unsafe_allow_html=True)
 
-# Menampilkan logo di tengah halaman
+# Menampilkan logo di tengah halaman dengan ukuran yang lebih besar
 st.markdown("<div class='container'>", unsafe_allow_html=True)
-st.image(logo_image_path)  # Logo ditampilkan dengan properti CSS
+st.image(logo_image_path, width=500)  # Besarkan ukuran logo
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Navigasi sidebar
