@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-import base64  # Perlu impor base64
+import base64
 from PIL import Image
 
 # Fungsi untuk mengubah file gambar lokal menjadi Base64
@@ -31,8 +31,8 @@ def set_background_image(image_path):
 st.set_page_config(page_title="Project Final Exam", layout="centered")
 
 # Atur path file lokal untuk gambar latar belakang dan logo
-background_image_path = "Presiden t1.jpg"  # Pastikan path-nya benar
-logo_image_path = "Logo PU-HD-2.jpg"  # Ganti dengan path logo yang sesuai
+background_image_path = "Presiden t1.jpg"
+logo_image_path = "Logo PU-HD-2.jpg"
 
 # Set gambar latar belakang
 set_background_image(background_image_path)
@@ -40,7 +40,7 @@ set_background_image(background_image_path)
 # Menampilkan logo di tengah halaman dan memperbesar ukuran logo
 def display_logo():
     st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-    st.image(logo_image_path, width=700)  # Perbesar logo dengan mengubah nilai width
+    st.image(logo_image_path, width=700)
     st.markdown("</div>", unsafe_allow_html=True)
 
 display_logo()
@@ -61,8 +61,8 @@ def custom_heading(text, level):
 # Navigasi sidebar
 with st.sidebar:
     select = option_menu(
-        "Project Final Exam", 
-        ["Introduction", "Application"], 
+        "Project Final Exam",
+        ["Introduction", "Application"],
         default_index=0
     )
 
@@ -70,14 +70,16 @@ with st.sidebar:
 if select == "Introduction":
     # Header
     st.markdown(custom_heading("INTRODUCTION", 1), unsafe_allow_html=True)
-    
-    # Tambahkan kalimat dan centering
-    st.markdown(center_content(
-        "We from Group 3 Industrial Engineering 1, introduce an image transformation application based on Streamlit. "
-        "We developed this application as part of our final project, which presents various features such as rotation, "
-        "translation, scale, and others. With a simple yet innovative design, this application is real evidence of the "
-        "application of image processing technology in real life."
-    ), unsafe_allow_html=True)
+
+    # Teks tanpa hyperlink
+    st.markdown(
+        """
+        We from Group 3 Industrial Engineering 1, introduce an image transformation application based on Streamlit.
+        We developed this application as part of our final project, which presents various features such as rotation,
+        translation, scale, and others. With a simple yet innovative design, this application is real evidence of the
+        application of image processing technology in real life.
+        """, unsafe_allow_html=True
+    )
 
     # Informasi anggota
     st.markdown(custom_heading("Group Members", 2), unsafe_allow_html=True)
@@ -100,19 +102,7 @@ if select == "Introduction":
         st.image("ratu2.jpg", caption="Ratu Enjelita", use_container_width=True)
     with col3:
         st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True)
-
-    # Menambahkan CSS untuk menyembunyikan link atau ikon hyperlink
-    st.markdown(
-        """
-        <style>
-            a { 
-                pointer-events: none; 
-                text-decoration: none; 
-                color: inherit;
-            }
-        </style>
-        """, unsafe_allow_html=True)
-
+    
 # Menu "Application"
 elif select == "Application":
     st.markdown(custom_heading("APPLICATION DESCRIPTION", 1), unsafe_allow_html=True)
