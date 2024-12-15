@@ -61,22 +61,22 @@ with st.sidebar:
 # Menu "Introduction"
 if select == "Introduction":
     # Header
-    st.markdown(center_content("### INTRODUCTION"), unsafe_allow_html=True)
+    st.markdown(center_content("INTRODUCTION"), unsafe_allow_html=True)
 
     # Informasi anggota
-    st.markdown(center_content("### Group Members"), unsafe_allow_html=True)
+    st.markdown(center_content("Group Members"), unsafe_allow_html=True)
     st.markdown(center_content("Chyntia Adinda Ramadani (004202305053)"), unsafe_allow_html=True)
     st.markdown(center_content("Ratu Enjelita (004202305032)"), unsafe_allow_html=True)
     st.markdown(center_content("Salsabilla Clarysa Putri (004202305016)"), unsafe_allow_html=True)
 
     # Program studi dan fakultas
-    st.markdown(center_content("### Program Study"), unsafe_allow_html=True)
+    st.markdown(center_content("Program Study"), unsafe_allow_html=True)
     st.markdown(center_content("Industrial Engineering"), unsafe_allow_html=True)
-    st.markdown(center_content("### Faculty"), unsafe_allow_html=True)
+    st.markdown(center_content("Faculty"), unsafe_allow_html=True)
     st.markdown(center_content("Engineering"), unsafe_allow_html=True)
 
     # Foto anggota
-    st.markdown(center_content("### Member Photo"), unsafe_allow_html=True)
+    st.markdown(center_content("Member Photo"), unsafe_allow_html=True)
     col1, col2, col3 = st.columns(3)
     with col1:
         st.image("cinta2.jpg", caption="Chyntia Adinda", use_container_width=True)
