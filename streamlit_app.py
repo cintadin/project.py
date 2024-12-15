@@ -209,5 +209,5 @@ elif select == "Application":
             img_io = convert_image_for_download(image, download_format)
             st.download_button(
                 label=f"Download as {download_format}",
-                data=img_io,
+                data=img_io,)
         
