@@ -1,7 +1,10 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 import base64
-from PIL import Image
+from PIL import Image, ImageEnhance
+import numpy as np
+import cv2
+import io
 
 # Fungsi untuk mengubah file gambar lokal menjadi Base64
 def set_background_image(image_path):
@@ -113,39 +116,66 @@ elif select == "Application":
     )
 
 # Upload Image
-    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "png"])
-    
-    if uploaded_file is not None:
-        # Open the image
-        image = Image.open(uploaded_file)
-        
-        # Bar opsi untuk memilih transformasi
-        transformation_type = st.radio("Choose a transformation", 
-                                      ("Rotation", "Translation", "Scaling", "Shear", "Skew"))
+    uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
 
-        # Input manual atau slider untuk transformasi
-        if transformation_type == "Rotation":
-            rotation = st.slider("Rotation Angle (degrees)", -180, 180, 0)
-            transformed_image = transform_image(image, transformation_type, rotation, 0, 0, 1.0, 0.0, 0.0)
-        elif transformation_type == "Translation":
-            translation_x = st.slider("Translation X (pixels)", -200, 200, 0)
-            translation_y = st.slider("Translation Y (pixels)", -200, 200, 0)
-            transformed_image = transform_image(image, transformation_type, 0, translation_x, translation_y, 1.0, 0.0, 0.0)
-        elif transformation_type == "Scaling":
-            scale_factor = st.slider("Scaling Factor", 0.1, 3.0, 1.0)
-            transformed_image = transform_image(image, transformation_type, 0, 0, 0, scale_factor, 0.0, 0.0)
-        elif transformation_type == "Shear":
-            shear_factor = st.slider("Shear Factor", -0.5, 0.5, 0.0)
-            transformed_image = transform_image(image, transformation_type, 0, 0, 0, 1.0, shear_factor, 0.0)
-        elif transformation_type == "Skew":
-            skew_factor = st.slider("Skew Factor", -0.5, 0.5, 0.0)
-            transformed_image = transform_image(image, transformation_type, 0, 0, 0, 1.0, 0.0, skew_factor)
-        
-        # Tampilkan gambar yang sudah ditransformasi
-        st.image(transformed_image, caption="Transformed Image", use_container_width=True)
+    if uploaded_file is not None:
+        image = Image.open(uploaded_file)
+        st.image(image, caption="Uploaded Image", use_container_width=True)
+
+        # Transformasi gambar
+        transformation = st.selectbox("Select Transformation", ["Select", "Rotate", "Skew", "Zoom", "Scale", "Resize", "Brightness", "Transparency"])
+
+        if transformation == "Rotate":
+            angle = st.number_input("Enter Rotation Angle (degrees)", min_value=0, max_value=360, value=90, step=1)
+            rotated_image = image.rotate(angle)
+            st.image(rotated_image, caption="Rotated Image", use_container_width=True)
+
+        elif transformation == "Skew":
+            skew_factor = st.number_input("Enter Skew Factor", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
+            img_array = np.array(image)
+            rows, cols = img_array.shape[:2]
+            M = np.float32([[1, skew_factor, 0], [0, 1, 0]])
+            skewed_image = cv2.warpAffine(img_array, M, (cols, rows))
+            st.image(skewed_image, caption="Skewed Image", use_container_width=True)
+
+        elif transformation == "Zoom":
+            zoom_factor = st.number_input("Enter Zoom Factor", min_value=1.0, max_value=10.0, value=1.5, step=0.1)
+            img_array = np.array(image)
+            height, width = img_array.shape[:2]
+            new_height = int(height * zoom_factor)
+            new_width = int(width * zoom_factor)
+            zoomed_image = cv2.resize(img_array, (new_width, new_height), interpolation=cv2.INTER_LINEAR)
+            st.image(zoomed_image, caption="Zoomed Image", use_container_width=True)
+
+        elif transformation == "Scale":
+            scale_factor = st.number_input("Enter Scale Factor", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
+            width, height = image.size
+            scaled_image = image.resize((int(width * scale_factor), int(height * scale_factor)))
+            st.image(scaled_image, caption="Scaled Image", use_container_width=True)
+
+        elif transformation == "Resize":
+            new_width = st.number_input("Enter New Width", min_value=100, max_value=2000, value=image.width, step=10)
+            new_height = st.number_input("Enter New Height", min_value=100, max_value=2000, value=image.height, step=10)
+            resized_image = image.resize((new_width, new_height))
+            st.image(resized_image, caption="Resized Image", use_container_width=True)
+
+        elif transformation == "Brightness":
+            brightness = st.slider("Adjust Brightness", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
+            enhancer = ImageEnhance.Brightness(image)
+            bright_image = enhancer.enhance(brightness)
+            st.image(bright_image, caption="Brightness Adjusted Image", use_container_width=True)
+
+        elif transformation == "Transparency":
+            transparency = st.slider("Adjust Transparency", min_value=0.0, max_value=1.0, value=1.0, step=0.1)
+            if image.mode != 'RGBA':
+                image = image.convert('RGBA')
+            data = np.array(image)
+            data[..., 3] = (data[..., 3] * transparency).astype(np.uint8)
+            transparent_image = Image.fromarray(data, 'RGBA')
+            st.image(transparent_image, caption="Transparency Adjusted Image", use_container_width=True)
 
         # Pilih format file untuk unduhan
         download_format = st.selectbox("Select download format", ["PNG", "JPG", "PDF"])
-        
+
         # Menyediakan link unduhan untuk gambar
-        st.markdown(download_image(transformed_image, download_format), unsafe_allow_html=True)
+        st.markdown(download_image(image, download_format), unsafe_allow_html=True)
