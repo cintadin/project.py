@@ -1,6 +1,5 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-import base64
 from PIL import Image, ImageEnhance
 import numpy as np
 import io
@@ -180,7 +179,11 @@ elif select == "Application":
         elif transformation == "Remove Background":
             img_array = np.array(image)
             # Background removal tanpa pustaka rembg
-            img_array[np.all(img_array[:, :, :3] == [255, 255, 255], axis=-1)] = [0, 0, 0, 0]
+            if image.mode != 'RGBA':
+                image = image.convert('RGBA')
+            img_array = np.array(image)
+            mask = np.all(img_array[:, :, :3] == [255, 255, 255], axis=-1)
+            img_array[mask] = [0, 0, 0, 0]
             transformed_image = Image.fromarray(img_array)
 
         else:
