@@ -38,10 +38,10 @@ logo_image_path = "Logo PU-HD-2.jpg"  # Ganti dengan path logo yang sesuai
 # Set gambar latar belakang
 set_background_image(background_image_path)
 
-# Menampilkan logo di tengah halaman
+# Menampilkan logo di tengah halaman dan memperbesar ukuran logo
 def display_logo():
     st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-    st.image(logo_image_path, width=500)
+    st.image(logo_image_path, width=700)  # Perbesar logo dengan mengubah nilai width
     st.markdown("</div>", unsafe_allow_html=True)
 
 display_logo()
