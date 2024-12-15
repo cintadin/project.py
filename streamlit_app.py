@@ -119,16 +119,27 @@ elif select == "Application":
         # Open the image
         image = Image.open(uploaded_file)
         
+        # Bar opsi untuk memilih transformasi
+        transformation_type = st.radio("Choose a transformation", 
+                                      ("Rotation", "Translation", "Scaling", "Shear", "Skew"))
+
         # Input manual atau slider untuk transformasi
-        rotation = st.slider("Rotation Angle (degrees)", -180, 180, 0)
-        translation_x = st.slider("Translation X (pixels)", -200, 200, 0)
-        translation_y = st.slider("Translation Y (pixels)", -200, 200, 0)
-        scale_factor = st.slider("Scaling Factor", 0.1, 3.0, 1.0)
-        shear_factor = st.slider("Shear Factor", -0.5, 0.5, 0.0)
-        skew_factor = st.slider("Skew Factor", -0.5, 0.5, 0.0)
-        
-        # Transformasi gambar
-        transformed_image = transform_image(image, rotation, translation_x, translation_y, scale_factor, shear_factor, skew_factor)
+        if transformation_type == "Rotation":
+            rotation = st.slider("Rotation Angle (degrees)", -180, 180, 0)
+            transformed_image = transform_image(image, transformation_type, rotation, 0, 0, 1.0, 0.0, 0.0)
+        elif transformation_type == "Translation":
+            translation_x = st.slider("Translation X (pixels)", -200, 200, 0)
+            translation_y = st.slider("Translation Y (pixels)", -200, 200, 0)
+            transformed_image = transform_image(image, transformation_type, 0, translation_x, translation_y, 1.0, 0.0, 0.0)
+        elif transformation_type == "Scaling":
+            scale_factor = st.slider("Scaling Factor", 0.1, 3.0, 1.0)
+            transformed_image = transform_image(image, transformation_type, 0, 0, 0, scale_factor, 0.0, 0.0)
+        elif transformation_type == "Shear":
+            shear_factor = st.slider("Shear Factor", -0.5, 0.5, 0.0)
+            transformed_image = transform_image(image, transformation_type, 0, 0, 0, 1.0, shear_factor, 0.0)
+        elif transformation_type == "Skew":
+            skew_factor = st.slider("Skew Factor", -0.5, 0.5, 0.0)
+            transformed_image = transform_image(image, transformation_type, 0, 0, 0, 1.0, 0.0, skew_factor)
         
         # Tampilkan gambar yang sudah ditransformasi
         st.image(transformed_image, caption="Transformed Image", use_container_width=True)
