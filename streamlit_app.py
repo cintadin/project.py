@@ -2,6 +2,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 from PIL import Image
 import base64
+from rembg import remove  # To handle the remove background operation
 
 # Fungsi untuk mengubah file gambar lokal menjadi Base64
 def set_background_image(image_path):
@@ -127,3 +128,10 @@ elif select == "Application":
                 (1, 0, tx, 0, 1, ty)
             )
             st.image(translated_image, caption="Translated Image", use_container_width=True)
+
+        elif transformation == "Remove Background":
+            # Remove the background from the image using rembg
+            if image.mode != 'RGBA':
+                image = image.convert("RGBA")
+            output_image = remove(image)
+            st.image(output_image, caption="Image without Background", use_container_width=True)
