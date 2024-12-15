@@ -1,5 +1,52 @@
+# Navigasi sidebar
+with st.sidebar:
+    select = option_menu(
+        "Project Final Exam",
+        ["Introduction", "Application"],
+        default_index=0
+    )
+
+# Menu "Introduction"
+if select == "Introduction":
+    # Header
+    st.markdown(custom_heading("INTRODUCTION", 1), unsafe_allow_html=True)
+
+    # Teks biasa (tanpa hyperlink) dengan rata kanan kiri
+    st.markdown(
+        """
+        <div style="text-align: justify;">
+        We from Group 3 Industrial Engineering 1, introduce an image transformation application based on Streamlit. 
+        We developed this application as part of our final project, which presents various features such as rotation, 
+        translation, scale, and others. With a simple yet innovative design, this application is real evidence of the 
+        application of image processing technology in real life.
+        </div>
+        """, unsafe_allow_html=True
+    )
+
+    # Informasi anggota
+    st.markdown(custom_heading("Group Members", 2), unsafe_allow_html=True)
+    st.text("1. Chyntia Adinda Ramadani (004202305053)")
+    st.text("2. Ratu Enjelita (004202305032)")
+    st.text("3. Salsabilla Clarysa Putri (004202305016)")
+
+    # Program studi dan fakultas
+    st.markdown(custom_heading("Program Study", 2), unsafe_allow_html=True)
+    st.text("Industrial Engineering")
+    st.markdown(custom_heading("Faculty", 2), unsafe_allow_html=True)
+    st.text("Engineering")
+
+    # Foto anggota
+    st.markdown(custom_heading("Member Photo", 2), unsafe_allow_html=True)
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.image("cinta2.jpg", caption="Chyntia Adinda", use_container_width=True)
+    with col2:
+        st.image("ratu2.jpg", caption="Ratu Enjelita", use_container_width=True)
+    with col3:
+        st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True)
+
 # Menu "Application"
-if elif select == "Application":
+elif select == "Application":
     st.markdown(custom_heading("APPLICATION DESCRIPTION", 1), unsafe_allow_html=True)
     
     # Menambahkan deskripsi aplikasi
@@ -14,7 +61,7 @@ if elif select == "Application":
         </div>
         """, unsafe_allow_html=True
     )
-
+    
     # Upload Image
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
 
