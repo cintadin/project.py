@@ -56,7 +56,7 @@ def custom_heading(text, level):
     elif level == 2:
         return f"<h2 style='text-align: center; font-size: 30px; font-family: Arial, sans-serif;'>{text}</h2>"
     elif level == 3:
-        return f"<h3 style='text-align: center; font-size: 24px; font-family: Arial, sans-serif;'>{text}</h3>"
+        return f"<h3 style='text-align: center; font-size: 24px; font-family: Arial, sans-serif;'>{text}</h3}"
 
 # Navigasi sidebar
 with st.sidebar:
@@ -71,12 +71,16 @@ if select == "Introduction":
     # Header
     st.markdown(custom_heading("INTRODUCTION", 1), unsafe_allow_html=True)
 
-    # Teks biasa (tanpa hyperlink)
-    st.text(
-        "We from Group 3 Industrial Engineering 1, introduce an image transformation application based on Streamlit. "
-        "We developed this application as part of our final project, which presents various features such as rotation, "
-        "translation, scale, and others. With a simple yet innovative design, this application is real evidence of the "
-        "application of image processing technology in real life."
+    # Teks biasa (tanpa hyperlink) dengan rata kanan kiri
+    st.markdown(
+        """
+        <div style="text-align: justify;">
+        We from Group 3 Industrial Engineering 1, introduce an image transformation application based on Streamlit. 
+        We developed this application as part of our final project, which presents various features such as rotation, 
+        translation, scale, and others. With a simple yet innovative design, this application is real evidence of the 
+        application of image processing technology in real life.
+        </div>
+        """, unsafe_allow_html=True
     )
 
     # Informasi anggota
