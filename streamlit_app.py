@@ -1,3 +1,65 @@
+import streamlit as st
+from streamlit_option_menu import option_menu
+import base64
+from PIL import Image, ImageEnhance
+import numpy as np
+import io
+
+# Fungsi untuk mengubah file gambar lokal menjadi Base64
+def set_background_image(image_path):
+    try:
+        with open(image_path, "rb") as img_file:
+            encoded = base64.b64encode(img_file.read()).decode()
+        st.markdown(
+            f"""
+            <style>
+            [data-testid="stAppViewContainer"] {{
+                background-image: url("data:image/png;base64,{encoded}");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }}
+            [data-testid="stSidebar"] {{
+                background-color: rgba(255, 255, 255, 0.8);
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+    except FileNotFoundError:
+        st.error("File background tidak ditemukan. Periksa path gambar Anda.")
+
+# Konfigurasi halaman
+st.set_page_config(page_title="Project Final Exam", layout="centered")
+
+# Atur path file lokal untuk gambar latar belakang dan logo
+background_image_path = "Presiden t1.jpg"
+logo_image_path = "Logo PU-HD-2.jpg"
+
+# Set gambar latar belakang
+set_background_image(background_image_path)
+
+# Menampilkan logo di tengah halaman dan memperbesar ukuran logo
+def display_logo():
+    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+    st.image(logo_image_path, width=700)
+    st.markdown("</div>", unsafe_allow_html=True)
+
+display_logo()
+
+# Fungsi untuk memusatkan konten
+def center_content(content):
+    return f"<p style='text-align: center;'>{content}</p>"
+
+# Fungsi untuk menampilkan heading dengan CSS
+def custom_heading(text, level):
+    if level == 1:
+        return f"<h1 style='text-align: center; font-size: 36px; font-family: Arial, sans-serif;'>{text}</h1>"
+    elif level == 2:
+        return f"<h2 style='text-align: left; font-size: 30px; font-family: Arial, sans-serif;'>{text}</h2>"  # Rata kiri untuk h2
+    elif level == 3:
+        return f"<h3 style='text-align: center; font-size: 30px; font-family: Arial, sans-serif;'>{text}</h3>"
+
 # Navigasi sidebar
 with st.sidebar:
     select = option_menu(
@@ -48,20 +110,10 @@ if select == "Introduction":
 # Menu "Application"
 elif select == "Application":
     st.markdown(custom_heading("APPLICATION DESCRIPTION", 1), unsafe_allow_html=True)
-    
-    # Menambahkan deskripsi aplikasi
-    st.markdown(
-        """
-        <div style="text-align: justify;">
-        The application allows users to upload images and apply various transformations, 
-        such as rotation, skew, zoom, scale, resize, brightness adjustment, transparency, 
-        shear, translation, and RGB color channel adjustment. Users can customize each 
-        transformation with specified parameters and download the transformed image in PNG, 
-        JPG, or PDF format.
-        </div>
-        """, unsafe_allow_html=True
+    st.write(
+        "This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, transparency, shear, and translation."
     )
-    
+
     # Upload Image
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
 
