@@ -74,7 +74,7 @@ if select == "Introduction":
         "We from Group 3 Industrial Engineering 1, introduce an image transformation application based on Streamlit. "
         "We developed this application as part of our final project, which presents various features such as rotation, "
         "translation, scale, and others. With a simple yet innovative design, this application is real evidence of the "
-        "application of image processing technology in real life."
+        "application of image processing technology in real life.",
     unsafe_allow_html=True)
 
     # Informasi anggota
