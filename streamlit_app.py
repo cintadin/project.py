@@ -110,9 +110,12 @@ if select == "Introduction":
 # Menu "Application"
 elif select == "Application":
     st.markdown(custom_heading("APPLICATION DESCRIPTION", 1), unsafe_allow_html=True)
-    st.write(
-        "The application allows users to upload images and apply various transformations, such as rotation, skew, zoom, scale, resize, brightness adjustment, transparency, shear, translation, and RGB color channel adjustment. Users can customize each transformation with specified parameters and download the transformed image in PNG, JPG, or PDF format."
-    )
+    st.markdown(
+        """
+        <div style="text-align: justify;">
+        The application allows users to upload images and apply various transformations, such as rotation, skew, zoom, scale, resize, brightness adjustment, transparency, shear, translation, and RGB color channel adjustment. Users can customize each transformation with specified parameters and download the transformed image in PNG, JPG, or PDF format.
+        </div>
+        """, unsafe_allow_html=True)
 
     # Upload Image
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
