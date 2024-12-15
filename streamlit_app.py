@@ -69,15 +69,15 @@ if select == "Introduction":
 
     # Informasi anggota
     st.markdown(center_content("<h3>Group Members</h3>"), unsafe_allow_html=True)
-    st.write("Chyntia Adinda Ramadani (004202305053)")
-    st.write("Ratu Enjelita (004202305032)")
-    st.write("Salsabilla Clarysa Putri (004202305016)")
+    st.write(center_content("Chyntia Adinda Ramadani (004202305053)"))
+    st.write(center_content("Ratu Enjelita (004202305032)"))
+    st.write(center_content("Salsabilla Clarysa Putri (004202305016)"))
 
     # Program studi dan fakultas
     st.markdown(center_content("<h3>Program Study</h3>"), unsafe_allow_html=True)
-    st.write("Industrial Engineering")
+    st.write(center_content("Industrial Engineering"))
     st.markdown(center_content("<h3>Faculty</h3>"), unsafe_allow_html=True)
-    st.write("Engineering")
+    st.write(center_content("Engineering"))
 
     # Foto anggota
     st.markdown(center_content("<h3>Member Photo</h3>"), unsafe_allow_html=True)
