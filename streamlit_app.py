@@ -116,6 +116,9 @@ elif select == "Application":
         The application allows users to upload images and apply various transformations, such as rotation, skew, zoom, scale, resize, brightness adjustment, transparency, shear, translation, and RGB color channel adjustment. Users can customize each transformation with specified parameters and download the transformed image in PNG, JPG, or PDF format.
         </div>
         """, unsafe_allow_html=True)
+    
+    # Menambahkan jarak antar teks dan elemen upload
+    st.markdown("<br><br>", unsafe_allow_html=True)  # Menambahkan 2 baris kosong
 
     # Upload Image
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
