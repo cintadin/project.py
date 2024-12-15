@@ -86,7 +86,7 @@ if select == "Introduction":
     )
 
     # Menambahkan jarak antar teks 
-    st.markdown("<br>", unsafe_allow_html=True)  # Menambahkan 1 baris kosong
+    st.markdown("<br><br>", unsafe_allow_html=True)  # Menambahkan 2 baris kosong
 
     # Informasi anggota
     st.markdown(custom_heading("Group Members", 2), unsafe_allow_html=True)
