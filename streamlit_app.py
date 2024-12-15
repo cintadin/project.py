@@ -1,9 +1,8 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-from PIL import Image
+from PIL import Image, ImageEnhance
 import base64
 import numpy as np
-import cv2  # Pastikan OpenCV terinstal
 
 # Fungsi untuk mengubah file gambar lokal menjadi Base64
 def set_background_image(image_path):
@@ -108,7 +107,9 @@ elif select == "Application":
         elif transformation == "Translate":
             tx = st.slider("Translate X (pixels)", min_value=-500, max_value=500, value=0, step=1)
             ty = st.slider("Translate Y (pixels)", min_value=-500, max_value=500, value=0, step=1)
-            img_array = np.array(image)
-            M = np.float32([[1, 0, tx], [0, 1, ty]])
-            translated_image = cv2.warpAffine(img_array, M, (img_array.shape[1], img_array.shape[0]))
+            translated_image = image.transform(
+                image.size, 
+                Image.AFFINE, 
+                (1, 0, tx, 0, 1, ty)
+            )
             st.image(translated_image, caption="Translated Image", use_column_width=True)
