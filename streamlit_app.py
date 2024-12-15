@@ -54,9 +54,9 @@ def custom_heading(text, level):
     if level == 1:
         return f"<h1 style='text-align: center; font-size: 50px; font-family: Arial, sans-serif;'>{text}</h1>"
     elif level == 2:
-        return f"<h2 style='text-align: center; font-size: 40px; font-family: Arial, sans-serif;'>{text}</h2>"
+        return f"<h2 style='text-align: center; font-size: 35px; font-family: Arial, sans-serif;'>{text}</h2>"
     elif level == 3:
-        return f"<h3 style='text-align: center; font-size: 35px; font-family: Arial, sans-serif;'>{text}</h3>"
+        return f"<h3 style='text-align: center; font-size: 50px; font-family: Arial, sans-serif;'>{text}</h3>"
 
 # Navigasi sidebar
 with st.sidebar:
