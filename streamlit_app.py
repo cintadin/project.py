@@ -54,7 +54,7 @@ def custom_heading(text, level):
     if level == 1:
         return f"<h1 style='text-align: center; font-size: 36px; font-family: Arial, sans-serif;'>{text}</h1>"
     elif level == 2:
-        return f"<h2 style='text-align: center; font-size: 30px; font-family: Arial, sans-serif;'>{text}</h2>"
+        return f"<h2 style='text-align: left; font-size: 30px; font-family: Arial, sans-serif;'>{text}</h2>"  # Rata kiri untuk h2
     elif level == 3:
         return f"<h3 style='text-align: center; font-size: 24px; font-family: Arial, sans-serif;'>{text}</h3>"
 
@@ -97,17 +97,4 @@ if select == "Introduction":
 
     # Foto anggota
     st.markdown(custom_heading("Member Photo", 2), unsafe_allow_html=True)
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.image("cinta2.jpg", caption="Chyntia Adinda", use_container_width=True)
-    with col2:
-        st.image("ratu2.jpg", caption="Ratu Enjelita", use_container_width=True)
-    with col3:
-        st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True)
-
-# Menu "Application"
-elif select == "Application":
-    st.markdown(custom_heading("APPLICATION DESCRIPTION", 1), unsafe_allow_html=True)
-    st.write(
-        "This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, and transparency."
-    )
+    col1
