@@ -2,5 +2,3 @@ streamlit
 Pillow
 streamlit_option_menu
 numpy
-rembg 
-onnxruntime
