@@ -48,11 +48,7 @@ display_logo()
 
 # Fungsi untuk memusatkan konten
 def center_content(content):
-    return f"""
-    <div style="text-align: center; max-width: 900px; margin: auto;">
-        {content}
-    </div>
-    """
+    return f"<div style='text-align: center;'>{content}</div>"
 
 # Navigasi sidebar
 with st.sidebar:
