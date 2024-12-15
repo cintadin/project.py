@@ -54,36 +54,44 @@ with st.sidebar:
         default_index=0
     )
 
+# Membuat konten terpusat
+def center_content(content):
+    return f"""
+    <div style="text-align: center; max-width: 900px; margin: auto;">
+        {content}
+    </div>
+    """
+
 # Menu "Introduction"
 if select == "Introduction":
     # Header
-    st.markdown("<div style='text-align: center;'><h2>INTRODUCTION</h2></div>", unsafe_allow_html=True)
+    st.markdown(center_content("<h2>INTRODUCTION</h2>"), unsafe_allow_html=True)
 
     # Informasi anggota
-    st.markdown("<div style='text-align: center;'><h3>Group Members</h3></div>", unsafe_allow_html=True)
+    st.markdown(center_content("<h3>Group Members</h3>"), unsafe_allow_html=True)
     st.write("Chyntia Adinda Ramadani (004202305053)")
     st.write("Ratu Enjelita (004202305032)")
     st.write("Salsabilla Clarysa Putri (004202305016)")
 
     # Program studi dan fakultas
-    st.markdown("<div style='text-align: center;'><h3>Program Study</h3></div>", unsafe_allow_html=True)
+    st.markdown(center_content("<h3>Program Study</h3>"), unsafe_allow_html=True)
     st.write("Industrial Engineering")
-    st.markdown("<div style='text-align: center;'><h3>Faculty</h3></div>", unsafe_allow_html=True)
+    st.markdown(center_content("<h3>Faculty</h3>"), unsafe_allow_html=True)
     st.write("Engineering")
 
     # Foto anggota
-    st.markdown("<div style='text-align: center;'><h3>Member Photo</h3></div>", unsafe_allow_html=True)
+    st.markdown(center_content("<h3>Member Photo</h3>"), unsafe_allow_html=True)
     col1, col2, col3 = st.columns(3)
     with col1:
         st.image("cinta2.jpg", caption="Chyntia Adinda", use_container_width=True)
     with col2:
         st.image("ratu2.jpg", caption="Ratu Enjelita", use_container_width=True)
     with col3:
-        st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True) 
+        st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True)
 
 # Menu "Application"
 elif select == "Application":
-    st.markdown("<div style='text-align: center;'><h2>APPLICATION DESCRIPTION</h2></div>", unsafe_allow_html=True)
+    st.markdown(center_content("<h2>APPLICATION DESCRIPTION</h2>"), unsafe_allow_html=True)
     st.write(
         "This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, and transparency."
     )
