@@ -111,7 +111,7 @@ if select == "Introduction":
 elif select == "Application":
     st.markdown(custom_heading("APPLICATION DESCRIPTION", 1), unsafe_allow_html=True)
     st.write(
-        "This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, and transparency."
+        "This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, transparency, shear, and translation."
     )
 
     # Upload Image
@@ -122,7 +122,7 @@ elif select == "Application":
         st.image(image, caption="Uploaded Image", use_container_width=True)
 
         # Transformasi gambar
-        transformation = st.selectbox("Select Transformation", ["Select", "Rotate", "Skew", "Zoom", "Scale", "Resize", "Brightness", "Transparency"])
+        transformation = st.selectbox("Select Transformation", ["Select", "Rotate", "Skew", "Zoom", "Scale", "Resize", "Brightness", "Transparency", "Shear", "Translate"])
 
         if transformation == "Rotate":
             angle = st.number_input("Enter Rotation Angle (degrees)", min_value=0, max_value=360, value=90, step=1)
@@ -172,6 +172,23 @@ elif select == "Application":
             data[..., 3] = (data[..., 3] * transparency).astype(np.uint8)
             transparent_image = Image.fromarray(data, 'RGBA')
             st.image(transparent_image, caption="Transparency Adjusted Image", use_container_width=True)
+
+        elif transformation == "Shear":
+            shear_factor = st.slider("Adjust Shear Factor", min_value=-10.0, max_value=10.0, value=0.0, step=0.1)
+            img_array = np.array(image)
+            rows, cols = img_array.shape[:2]
+            M = np.float32([ [1, shear_factor, 0], [0, 1, 0] ])
+            sheared_image = image.transform((cols, rows), Image.AFFINE, (1, shear_factor, 0, 0, 1, 0))
+            st.image(sheared_image, caption="Sheared Image", use_container_width=True)
+
+        elif transformation == "Translate":
+            tx = st.slider("Translate X", min_value=-200, max_value=200, value=0, step=1)
+            ty = st.slider("Translate Y", min_value=-200, max_value=200, value=0, step=1)
+            img_array = np.array(image)
+            rows, cols = img_array.shape[:2]
+            M = np.float32([ [1, 0, tx], [0, 1, ty] ])
+            translated_image = image.transform((cols, rows), Image.AFFINE, (1, 0, tx, 0, 1, ty))
+            st.image(translated_image, caption="Translated Image", use_container_width=True)
 
         # Pilih format file untuk unduhan
         download_format = st.selectbox("Select download format", ["PNG", "JPG", "PDF"])
