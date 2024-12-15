@@ -32,7 +32,7 @@ def set_background_image(image_path):
 st.set_page_config(page_title="Project Final Exam", layout="centered")
 
 # Atur path file lokal untuk gambar latar belakang dan logo
-background_image_path = "C:/Users/Lenovo/OneDrive/Gambar/Presiden t1.jpg"  # Pastikan path-nya benar
+background_image_path = "Presiden t1.jpg"  # Pastikan path-nya benar
 logo_image_path = "Logo PU-HD-2.jpg"  # Ganti dengan path logo yang sesuai
 
 # Set gambar latar belakang
