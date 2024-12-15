@@ -70,8 +70,6 @@ with st.sidebar:
 if select == "Introduction":
     # Header
     st.markdown(custom_heading("INTRODUCTION", 1), unsafe_allow_html=True)
-
-    #Introduction
     st.markdown(center_content("We from Group 3 Industrial Engineering 1, introduce an image transformation application based on Streamlit.",2), unsafe_allow_html=True)
     st.markdown(center_content("We developed this application as part of our final project, which presents various features such as rotation, translation, scale, and others. With a simple yet innovative design, this application is real evidence of the application of image processing technology in real life.",2), unsafe_allow_html=True)
 
