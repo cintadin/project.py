@@ -85,6 +85,9 @@ if select == "Introduction":
         """, unsafe_allow_html=True
     )
 
+    # Menambahkan jarak antar teks 
+    st.markdown("<br><br>", unsafe_allow_html=True)  # Menambahkan 2 baris kosong
+
     # Informasi anggota
     st.markdown(custom_heading("Group Members", 2), unsafe_allow_html=True)
     st.text("1. Chyntia Adinda Ramadani (004202305053)")
