@@ -8,7 +8,7 @@ st.set_page_config(page_title="Project Final Exam", layout="centered")
 
 # Atur path file lokal untuk gambar latar belakang dan logo
 background_image_path = r"C:\Users\Lenovo\OneDrive\Gambar\Presiden t1.jpg"  # Pastikan path-nya benar
-logo_image_path = "Logo PU-HD-2.png"  # Ganti dengan path logo yang sesuai
+logo_image_path = "Logo PU-HD-2.jpg"  # Ganti dengan path logo yang sesuai
 
 # Gunakan CSS untuk styling dan latar belakang
 st.markdown(
