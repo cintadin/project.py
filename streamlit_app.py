@@ -205,11 +205,12 @@ elif select == "Application":
             img_io.seek(0)
             return img_io
 
-        if st.button("Download Image"):
-            img_io = convert_image_for_download(image, download_format)
-            st.download_button(
-                label=f"Download as {download_format}",
-                data=img_io,
-                file_name=f"transformed_image.{download_format.lower()}",
-                mime=f"image/{download_format.lower()}"
-            )
+         # Unduh gambar
+        img_io = convert_image_for_download(transformed_image, download_format)
+        st.download_button(
+            label=f"Download as {download_format}",
+            data=img_io,
+            file_name=f"transformed_image.{download_format.lower()}",
+            mime=f"image/{download_format.lower()}"
+        )
+
