@@ -52,7 +52,7 @@ def center_content(content):
 # Fungsi untuk menampilkan heading dengan CSS
 def custom_heading(text, level):
     if level == 1:
-        return f"<h1 style='text-align: center; font-size: 50px; font-family: Arial, sans-serif;'>{text}</h1>"
+        return f"<h1 style='text-align: center; font-size: 45px; font-family: Arial, sans-serif;'>{text}</h1>"
     elif level == 2:
         return f"<h2 style='text-align: center; font-size: 35px; font-family: Arial, sans-serif;'>{text}</h2>"
     elif level == 3:
