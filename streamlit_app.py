@@ -52,11 +52,11 @@ def center_content(content):
 # Fungsi untuk menampilkan heading dengan CSS
 def custom_heading(text, level):
     if level == 1:
-        return f"<h1 style='text-align: center; font-size: 36px; font-family: Arial, sans-serif;'>{text}</h1>"
+        return f"<h1 style='text-align: center; font-size: 36px; font-family: Arial, sans-serif; margin: 0 auto;'>{text}</h1>"
     elif level == 2:
-        return f"<h2 style='text-align: center; font-size: 30px; font-family: Arial, sans-serif;'>{text}</h2>"
+        return f"<h2 style='text-align: center; font-size: 30px; font-family: Arial, sans-serif; margin: 0 auto;'>{text}</h2>"
     elif level == 3:
-        return f"<h3 style='text-align: center; font-size: 24px; font-family: Arial, sans-serif;'>{text}</h3>"
+        return f"<h3 style='text-align: center; font-size: 24px; font-family: Arial, sans-serif; margin: 0 auto;'>{text}</h3>"
 
 # Navigasi sidebar
 with st.sidebar:
