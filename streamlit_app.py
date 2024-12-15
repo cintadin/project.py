@@ -1,7 +1,33 @@
 import streamlit as st
-from streamlit_option_menu import option_menu  # type: ignore
+from streamlit_option_menu import option_menu
 from PIL import Image
+import base64
 import numpy as np
+import cv2  # Pastikan OpenCV terinstal
+
+# Fungsi untuk mengubah file gambar lokal menjadi Base64
+def set_background_image(image_path):
+    try:
+        with open(image_path, "rb") as img_file:
+            encoded = base64.b64encode(img_file.read()).decode()
+        st.markdown(
+            f"""
+            <style>
+            [data-testid="stAppViewContainer"] {{
+                background-image: url("data:image/png;base64,{encoded}");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }}
+            [data-testid="stSidebar"] {{
+                background-color: rgba(255, 255, 255, 0.8);
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+    except FileNotFoundError:
+        st.error("File background tidak ditemukan. Periksa path gambar Anda.")
 
 # Konfigurasi halaman
 st.set_page_config(page_title="Project Final Exam", layout="centered")
@@ -10,46 +36,16 @@ st.set_page_config(page_title="Project Final Exam", layout="centered")
 background_image_path = "C:/Users/Lenovo/OneDrive/Gambar/Presiden t1.jpg"  # Pastikan path-nya benar
 logo_image_path = "Logo PU-HD-2.jpg"  # Ganti dengan path logo yang sesuai
 
-# Gunakan CSS untuk styling dan latar belakang
-st.markdown(
-    f"""
-    <style>
-    body {{
-        background-image: url('file:///{background_image_path}');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 100vh;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        text-align: center; /* Pusatkan teks dan elemen di tengah secara horizontal */
-    }}
-    .container {{
-        text-align: center;
-        margin-top: 20px;
-        margin-bottom: 20px; /* Tambahkan margin bawah */
-    }}
-    img {{
-        display: block;
-        margin: 50px auto; /* Pusatkan gambar dan tambahkan margin atas/bawah */
-        width: 500px; /* Besarkan ukuran logo */
-        max-width: 80%; /* Agar logo tetap responsif pada layar kecil */
-        height: auto; /* Memastikan aspek rasio tetap terjaga */
-    }}
-    h2, h3 {{
-        color: #333333;
-        text-align: center; /* Pusatkan teks */
-    }}
-    </style>
-    """, unsafe_allow_html=True)
+# Set gambar latar belakang
+set_background_image(background_image_path)
 
-# Menampilkan logo di tengah halaman dengan ukuran yang lebih besar
-st.markdown("<div class='container'>", unsafe_allow_html=True)
-st.image(logo_image_path, width=500)  # Besarkan ukuran logo
-st.markdown("</div>", unsafe_allow_html=True)
+# Menampilkan logo di tengah halaman
+def display_logo():
+    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+    st.image(logo_image_path, width=500)
+    st.markdown("</div>", unsafe_allow_html=True)
+
+display_logo()
 
 # Navigasi sidebar
 with st.sidebar:
@@ -62,34 +58,33 @@ with st.sidebar:
 # Menu "Introduction"
 if select == "Introduction":
     # Header
-    st.markdown("<div class='container'>", unsafe_allow_html=True)
-    st.markdown("<h2>INTRODUCTION</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>INTRODUCTION</h2>", unsafe_allow_html=True)
 
     # Informasi anggota
-    st.markdown("<h3>Group Members</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center;'>Group Members</h3>", unsafe_allow_html=True)
     st.write("Chyntia Adinda Ramadani (004202305053)")
     st.write("Ratu Enjelita (004202305032)")
     st.write("Salsabilla Clarysa Putri (004202305016)")
 
     # Program studi dan fakultas
-    st.markdown("<h3>Program Study</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center;'>Program Study</h3>", unsafe_allow_html=True)
     st.write("Industrial Engineering")
-    st.markdown("<h3>Faculty</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center;'>Faculty</h3>", unsafe_allow_html=True)
     st.write("Engineering")
 
     # Foto anggota
-    st.markdown("<h3>Member Photo</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center;'>Member Photo</h3>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.image("cinta2.jpg", caption="Chyntia Adinda", use_container_width=True)
+        st.image("cinta2.jpg", caption="Chyntia Adinda", use_column_width=True)
     with col2:
-        st.image("ratu2.jpg", caption="Ratu Enjelita", use_container_width=True)
+        st.image("ratu2.jpg", caption="Ratu Enjelita", use_column_width=True)
     with col3:
-        st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True) 
+        st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_column_width=True) 
 
 # Menu "Application"
 elif select == "Application":
-    st.markdown("<h2>APPLICATION DESCRIPTION</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>APPLICATION DESCRIPTION</h2>", unsafe_allow_html=True)
     st.write(
         "This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, and transparency."
     )
