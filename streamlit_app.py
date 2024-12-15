@@ -190,7 +190,10 @@ elif select == "Application":
             translated_image = image.transform((cols, rows), Image.AFFINE, (1, 0, tx, 0, 1, ty))
             st.image(translated_image, caption="Translated Image", use_container_width=True)
 
-       # Fungsi untuk mengonversi gambar
+        # Pilih format file untuk unduhan
+        download_format = st.selectbox("Select download format", ["PNG", "JPG", "PDF"])
+
+        # Fungsi untuk mengonversi dan mendownload gambar
         def convert_image_for_download(image, format):
             img_io = io.BytesIO()
             if format == "PNG":
@@ -202,14 +205,9 @@ elif select == "Application":
             img_io.seek(0)
             return img_io
 
-        # Pilih format file untuk unduhan
-        download_format = st.radio("Select download format", ["PNG", "JPG", "PDF"], index=0)
-
-        # Unduh langsung
-        img_io = convert_image_for_download(transformed_image, download_format)
-        st.download_button(
-            label=f"Download Image as {download_format}",
-            data=img_io,
-            file_name=f"transformed_image.{download_format.lower()}",
-            mime=f"image/{download_format.lower()}"
-        )
+        if st.button("Download Image"):
+            img_io = convert_image_for_download(image, download_format)
+            st.download_button(
+                label=f"Download as {download_format}",
+                data=img_io,)
+        
