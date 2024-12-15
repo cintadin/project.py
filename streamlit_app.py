@@ -1,7 +1,7 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 from PIL import Image
-import numpy as np
+import base64
 
 # Fungsi untuk mengubah file gambar lokal menjadi Base64
 def set_background_image(image_path):
@@ -12,7 +12,7 @@ def set_background_image(image_path):
             f"""
             <style>
             [data-testid="stAppViewContainer"] {{
-                background-image: url("data:image/png;base64,{encoded}"); 
+                background-image: url("data:image/png;base64,{encoded}");
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -28,7 +28,7 @@ def set_background_image(image_path):
         st.error("File background tidak ditemukan. Periksa path gambar Anda.")
 
 # Konfigurasi halaman
-st.set_page_config(page_title="Project Final Exam Group 03", layout="centered")
+st.set_page_config(page_title="Project Final Exam", layout="centered")
 
 # Atur path file lokal untuk gambar latar belakang dan logo
 background_image_path = "Presiden t1.jpg"  # Pastikan path-nya benar
@@ -52,16 +52,16 @@ def center_content(content):
 # Fungsi untuk menampilkan heading dengan CSS
 def custom_heading(text, level):
     if level == 1:
-        return f"<h1 style='text-align: center; font-size: 36px; font-family: Arial; margin: 0 auto;'>{text}</h1>"
+        return f"<h1 style='text-align: center; font-size: 36px; font-family: Arial, sans-serif;'>{text}</h1>"
     elif level == 2:
-        return f"<h2 style='text-align: center; font-size: 30px; font-family: Arial; margin: 0 auto;'>{text}</h2>"
+        return f"<h2 style='text-align: center; font-size: 30px; font-family: Arial, sans-serif;'>{text}</h2>"
     elif level == 3:
-        return f"<h3 style='text-align: center; font-size: 24px; font-family: Arial; margin: 0 auto; width: 100%;'>{text}</h3>"
+        return f"<h3 style='text-align: center; font-size: 24px; font-family: Arial, sans-serif;'>{text}</h3>"
 
 # Navigasi sidebar
 with st.sidebar:
     select = option_menu(
-        "Project Final Exam Group 03", 
+        "Project Final Exam", 
         ["Introduction", "Application"], 
         default_index=0
     )
@@ -70,10 +70,6 @@ with st.sidebar:
 if select == "Introduction":
     # Header
     st.markdown(custom_heading("INTRODUCTION", 1), unsafe_allow_html=True)
-
-    # Introduction
-    st.markdown(center_content("We from Group 3 Industrial Engineering 1, introduce an image transformation application based on Streamlit.", 2), unsafe_allow_html=True)
-    st.markdown(center_content("We developed this application as part of our final project, which presents various features such as rotation, translation, scale, and others. With a simple yet innovative design, this application is real evidence of the application of image processing technology in real life.", 2), unsafe_allow_html=True)
 
     # Informasi anggota
     st.markdown(custom_heading("Group Members", 2), unsafe_allow_html=True)
@@ -87,10 +83,22 @@ if select == "Introduction":
     st.markdown(custom_heading("Faculty", 2), unsafe_allow_html=True)
     st.markdown(center_content("Engineering"), unsafe_allow_html=True)
 
+    # Foto anggota
+    st.markdown(custom_heading("Member Photo", 2), unsafe_allow_html=True)
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.image("cinta2.jpg", caption="Chyntia Adinda", use_container_width=True)
+    with col2:
+        st.image("ratu2.jpg", caption="Ratu Enjelita", use_container_width=True)
+    with col3:
+        st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True)
+
 # Menu "Application"
 elif select == "Application":
     st.markdown(custom_heading("APPLICATION DESCRIPTION", 1), unsafe_allow_html=True)
-    st.write("This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, and transparency.")
+    st.write(
+        "This application allows users to perform various transformations on images, such as rotation, skew, zoom, scale, resize, brightness adjustment, and transparency."
+    )
 
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
 
@@ -117,22 +125,3 @@ elif select == "Application":
                 (1, 0, tx, 0, 1, ty)
             )
             st.image(translated_image, caption="Translated Image", use_container_width=True)
-
-        elif transformation == "Remove Background":
-            # Convert the image to RGBA (if it is not already)
-            image = image.convert("RGBA")
-            data = np.array(image)
-
-            # Define the background color (in this case, white)
-            background_color = (255, 255, 255, 255)  # White background
-            width, height = image.size
-
-            # Loop over each pixel to make the background transparent
-            for x in range(width):
-                for y in range(height):
-                    if np.array_equal(data[y, x], background_color):
-                        data[y, x] = (255, 255, 255, 0)  # Change the white background to transparent
-
-            # Convert the numpy array back to an image
-            result_image = Image.fromarray(data)
-            st.image(result_image, caption="Image without Background", use_container_width=True)
