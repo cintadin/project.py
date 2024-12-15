@@ -75,11 +75,11 @@ if select == "Introduction":
     st.markdown("<h3 style='text-align: center;'>Member Photo</h3>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.image("cinta2.jpg", caption="Chyntia Adinda", use_column_width=True)
+        st.image("cinta2.jpg", caption="Chyntia Adinda", use_container_width=True)
     with col2:
-        st.image("ratu2.jpg", caption="Ratu Enjelita", use_column_width=True)
+        st.image("ratu2.jpg", caption="Ratu Enjelita", use_container_width=True)
     with col3:
-        st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_column_width=True) 
+        st.image("salsa2.jpg", caption="Salsabilla Clarysa", use_container_width=True) 
 
 # Menu "Application"
 elif select == "Application":
@@ -92,7 +92,7 @@ elif select == "Application":
 
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Image", use_column_width=True)
+        st.image(image, caption="Uploaded Image", use_container_width=True)
 
         transformation = st.selectbox(
             "Select Transformation", 
@@ -102,7 +102,7 @@ elif select == "Application":
         if transformation == "Rotate":
             angle = st.slider("Enter Rotation Angle (degrees)", min_value=0, max_value=360, value=90, step=1)
             rotated_image = image.rotate(angle)
-            st.image(rotated_image, caption=f"Rotated Image by {angle}°", use_column_width=True)
+            st.image(rotated_image, caption=f"Rotated Image by {angle}°", use_container_width=True)
 
         elif transformation == "Translate":
             tx = st.slider("Translate X (pixels)", min_value=-500, max_value=500, value=0, step=1)
@@ -112,4 +112,4 @@ elif select == "Application":
                 Image.AFFINE, 
                 (1, 0, tx, 0, 1, ty)
             )
-            st.image(translated_image, caption="Translated Image", use_column_width=True)
+            st.image(translated_image, caption="Translated Image", use_container_width=True)
